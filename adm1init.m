@@ -2,6 +2,7 @@
 % CSTR according to recommended values of Batstone, Rosen, Jeppsson, et. al.
 % SOLID STATE Modification for LBR
 
+function ret=adm1init()
 
 global Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
     Xxc Xch Xpr Xli...
@@ -287,4 +288,4 @@ global Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
    
     [t,dX]=ode15s('adm1sys', time, [Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI Xxc Xch Xpr Xli Xsu Xaa  Xfa Xc4 Xpro Xac Xh2 XI Scat San Shva Shbu Shpro...
         Shac Shco3 Snh3 S_H_ion S_gas_h2 S_gas_ch4 S_gas_co2 q_gas Xhomo XCE Slac Sca]);
-
+    ret = dX
