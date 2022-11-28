@@ -21,3 +21,6 @@ tf = eng.adm1init(nargout=1)
 print('printing return')
 # result dosyaya yazdır
 print(tf)
+
+f = open("result.txt", "w")
+f.write(str(tf))
