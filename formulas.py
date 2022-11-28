@@ -19,4 +19,5 @@ fp.close()
 eng = matlab.engine.start_matlab()
 tf = eng.adm1init(nargout=1)
 print('printing return')
+# result dosyaya yazdır
 print(tf)
