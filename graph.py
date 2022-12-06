@@ -9,7 +9,7 @@ graph_x = []
 graph_y = []
 for key, value in data.items():
     graph_x.append(float(key))
-    graph_y.append(float(value["Saa"]))
+    graph_y.append(float(value["Sac"]))
 
 print(graph_y)
 
