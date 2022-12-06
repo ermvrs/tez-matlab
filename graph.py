@@ -9,14 +9,14 @@ graph_x = []
 graph_y = []
 for key, value in data.items():
     graph_x.append(float(key))
-    graph_y.append(float(value["Sac"]))
+    graph_y.append(float(value["Saa"]))
 
 print(graph_y)
 
 plt.plot(graph_x, graph_y)
   
 # naming the x axis
-plt.xlabel('x - axis')
+plt.xlabel('x - time')
 # naming the y axis
 plt.ylabel('y - axis')
   
