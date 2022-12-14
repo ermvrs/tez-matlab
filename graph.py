@@ -25,3 +25,6 @@ plt.title('Sac vs time')
   
 # function to show the plot
 plt.show()
+
+# DENEY DATA -1 ise data yok demek onları grafiğe işaretleme
+#   DENEY DATA NOKTA OLARAK EKLENECEK
