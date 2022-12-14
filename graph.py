@@ -16,7 +16,7 @@ print(graph_y)
 plt.plot(graph_x, graph_y)
   
 # naming the x axis
-plt.xlabel('x - axis')
+plt.xlabel('x - time')
 # naming the y axis
 plt.ylabel('y - axis')
   
