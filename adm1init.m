@@ -275,6 +275,7 @@ global Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
     % Gas transfer
     P_atm = 1.013; 
     p_gas_h2o = 0.0557; %0.0313*exp(5290*(1/298.15-1/Top)); 	
+    p_gas_ch4 = 0;
    %deltaH0_KH_co2 = -19410;
    % deltaH0_KH_ch4 = -14240;
    % deltaH0_KH_h2 = -4180;

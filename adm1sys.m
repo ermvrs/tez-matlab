@@ -351,7 +351,7 @@ global Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
 	dX(16) = (q_in/V_liq) * (Xli - X(16)) + f_li_xc * rho(1) - rho(4);
   %  dX(39) = (q_in/V_liq) * (X_li_feed - X(39)) - rho(23);
     % Mass Balance Eqn for Biomass (Monosaccharides)	
-	dX(17) = (q_in/V_liq) * (Xsu - X(17)) + Y_su * rho(5)*(1-((X(4)+X(5)+X(6)+X(7))/20)) - rho(13); % Kim et al BEJ_2016 VFA Ýnhibition function
+	dX(17) = (q_in/V_liq) * (Xsu - X(17)) + Y_su * rho(5)*(1-((X(4)+X(5)+X(6)+X(7))/20)) - rho(13); % Kim et al BEJ_2016 VFA ï¿½nhibition function
     % Mass Balance Eqn for Biomass (Amino Acids)
 	dX(18) = (q_in/V_liq) * (Xaa - X(18)) + Y_aa * rho(6) - rho(14);
     % Mass Balance Eqn for Biomass (Long Chain Fatty Acids)
@@ -399,7 +399,6 @@ global Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
 	dX(35) = -((X(35) * q_gas) / V_gas) + rhoT9 * (V_liq/V_gas);
 	dX(36) = -((X(36) * q_gas) / V_gas) + rhoT10 * (V_liq/V_gas);
     dX(37)= q_gas;
-  
     % Load Current State Vector Array (X0) with Initial Reactor State Configuration Variables
     X0(1) = Ssu;   % Monosaccharides
     X0(2) = Saa;   % Amino Acids
@@ -443,7 +442,7 @@ global Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
     X0(38)=Xhomo; %Biomass (Homoacetogens)
     X0(39)=XCE; %Chain elongation bacteria
     X0(40)=Slac;%Lactic acid
-    X0(41)=Sca;% Caproic acid
+    X0(41)=Sca;% Caproic acid              
     %feed extension
   %  X0(37) = X_ch_feed;
   %  X0(38) = X_pr_feed;

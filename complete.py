@@ -14,7 +14,7 @@ f.write(str(tf))
 
 ## Output düzenleme
 
-fp = open('result.json')
+fp = open('result-final.json')
 inputs  = json.load(fp)
 fp.close()
 
@@ -42,7 +42,7 @@ with open('timebased-final.json', 'w+', encoding='utf-8') as f:
 
 import matplotlib.pyplot as plt
 
-fp = open('timebased.json')
+fp = open('timebased-final.json')
 data  = json.load(fp)
 fp.close()
 
