@@ -1,6 +1,6 @@
 import json
 
-GRAPHICS = ["Sac", "Spro", "Sbu", "Xh2"] # TODO DENEY DATASI YOKSA PROGRAM ÇÖKMEMELİ
+GRAPHICS = ["S_gas_co2"] # TODO DENEY DATASI YOKSA PROGRAM ÇÖKMEMELİ
 ## Matlab çalıştırma ve output alma
 
 import matlab.engine
