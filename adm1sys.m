@@ -231,7 +231,6 @@ global time Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
   
     rho(22)=k_m_ce * (X(40)/(K_S_CE + X(40))) * X(39) * I5 * I_comp; %Chain Elongation
     
-    disp(Ith_h2toace);
 	rho(13) = k_dec_Xsu * X(17);
 	rho(14) = k_dec_Xaa * X(18);
 	rho(15) = k_dec_Xfa * X(19);
@@ -342,10 +341,15 @@ global time Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
     % Mass Balance Eqn for Composite	
     % xxc değerini time a gör edeğiştir.
     % dX(13) = (q_in/V_liq) * (Xxc - X(13)) - rho(1) + sum(rho(13:19));
-    if t == 10
-            dX(13) = (q_in/V_liq) * (Xxc - X(13)) - rho(1) + sum(rho(13:19));
-        else
+    disp(t)
+    if (t >= 10)
             dX(13) = 1.5* Xxc;
+        else 
+            if (t >= 30)
+                dX(13) = 2* Xxc;
+            else
+                dX(13) = (q_in/V_liq) * (Xxc - X(13)) - rho(1) + sum(rho(13:19));
+            end
         end
     % Mass Balance Eqn for Carbohydrates
 	dX(14) = (q_in/V_liq) * (Xch - X(14)) + f_ch_xc * rho(1) - rho(2);
