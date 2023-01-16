@@ -4,7 +4,7 @@
 
 function dX=adm1sys(t,X)
 
-global Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
+global time Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
     Xxc Xch Xpr Xli...
     Xsu Xaa Xfa  Xc4 Xpro Xac Xh2 ...
     XI Scat San Shva Shbu Shpro Shac Shco3 Snh3 S_H_ion...
@@ -340,7 +340,13 @@ global Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
     % Differential equations (particulate matter):
     % -----------------------------------------------------------------
     % Mass Balance Eqn for Composite	
-    dX(13) = (q_in/V_liq) * (Xxc - X(13)) - rho(1) + sum(rho(13:19));
+    % xxc değerini time a gör edeğiştir.
+    % dX(13) = (q_in/V_liq) * (Xxc - X(13)) - rho(1) + sum(rho(13:19));
+    if t == 10
+            dX(13) = (q_in/V_liq) * (Xxc - X(13)) - rho(1) + sum(rho(13:19));
+        else
+            dX(13) = 1.5* Xxc;
+        end
     % Mass Balance Eqn for Carbohydrates
 	dX(14) = (q_in/V_liq) * (Xch - X(14)) + f_ch_xc * rho(1) - rho(2);
   %  dX(37) = (q_in/V_liq) * (X_ch_feed - X(37)) - rho(21);
