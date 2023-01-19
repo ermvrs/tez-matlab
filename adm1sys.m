@@ -340,16 +340,11 @@ global time Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
     % -----------------------------------------------------------------
     % Mass Balance Eqn for Composite	
     % xxc değerini time a gör edeğiştir.
-    % dX(13) = (q_in/V_liq) * (Xxc - X(13)) - rho(1) + sum(rho(13:19));
-    if (t >= 10)
-        dX(13) = (q_in/V_liq) * (1.5*Xxc - X(13)) - rho(1) + sum(rho(13:19));
-    else 
-        if (t >= 30)
-            dX(13) = (q_in/V_liq) * (2*Xxc - X(13)) - rho(1) + sum(rho(13:19));
-        else
-            dX(13) = (q_in/V_liq) * (Xxc - X(13)) - rho(1) + sum(rho(13:19));
-        end
-    end
+    dX(13) = (q_in/V_liq) * (Xxc - X(13)) - rho(1) + sum(rho(13:19));
+
+    %dX(13) = xxcfonk(t, q_in, V_liq, Xxc, X(13), rho(1), sum(rho(13:19)));
+
+
     % Mass Balance Eqn for Carbohydrates
 	dX(14) = (q_in/V_liq) * (Xch - X(14)) + f_ch_xc * rho(1) - rho(2);
   %  dX(37) = (q_in/V_liq) * (X_ch_feed - X(37)) - rho(21);
@@ -451,7 +446,7 @@ global time Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
     X0(38)=Xhomo; %Biomass (Homoacetogens)
     X0(39)=XCE; %Chain elongation bacteria
     X0(40)=Slac;%Lactic acid
-    X0(41)=Sca;% Caproic acid              
+    X0(41)=Sca;% Caproic acid           
     %feed extension
   %  X0(37) = X_ch_feed;
   %  X0(38) = X_pr_feed;
