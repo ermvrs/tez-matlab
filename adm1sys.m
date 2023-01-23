@@ -28,7 +28,7 @@ global time Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
     delG_glutoAA delG_glutoBA delG_glutoPA delG_FAtoAA  delG_VAtoPA delG_H2toAce ...
     delG_BAtoAA  delG_PAtoAA  R_inh MW_ace COD_ace  ...
     MW_glu COD_glu COD_fa MW_fa MW_va COD_va MW_bu COD_bu MW_pro COD_pro...
-    k_m_homo K_S_homo k_dec_Xhomo Y_homo Xhomo ...
+    k_m_homo K_S_homo k_dec_Xhomo Y_homo Xhomo...
     n1_su n2_su...
     I_comp k_m_ce K_S_CE k_dec_Xce Slac  f_h2_lac  XCE......
     Sca f_ca_lac n3_su n4_su...
@@ -92,6 +92,19 @@ global time Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
     I_h2_nh3 = 1 / (1 + X(32) / K_I_nh3);
     Ivfa_ch4 =1 / (1 + ((X(4)+X(5)+X(6)+X(7)) / K_I_vfach4));%methanogens
 
+    K_S_no3 = 0.0042 ;%0.078(Literature); %Taken from the experimental data (see data for propionate Utilization). Paper Tugtas(2007) BB 98(4): 756-763
+    K_S_no2 = 0.01;
+    K_S_no = 0.028;
+    K_S_n2o = 0.056;
+    k_dec_Xnox = 0.5;
+
+    if t>= 10 & t<30
+        Xxc = 30;
+    elseif t>30
+        Xxc = 40;
+    else
+        Xxc = 20;
+    end;
     
     I5 = I_pH_aa * I_IN_lim;
 	I6 = I_pH_aa * I_IN_lim;
@@ -103,6 +116,7 @@ global time Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
 	I12 = I_pH_h2 * I_IN_lim* Ivfa_ch4;
     I13 = I_pH_ac * I_IN_lim; %hmoacetogen inhibition
     I_comp= 1;%(X(40)/(X(1)+X(40)+1e-6)); %Nascimento et al 2022, BITE reports Chain elongation based on lactic acid concentration
+    I_ea = (K_S_no3/(K_S_no3 + X(38))) * (K_S_no2/(K_S_no2 + X(39))) * (K_S_no/(K_S_no + X(40))) * (K_S_n2o/(K_S_n2o + X(41)));
     
    
     %---------------------------------------------------------------------
@@ -160,15 +174,6 @@ global time Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
    delG_7=(delG_PAtoAA*1000) + R_inh*T_op*log((((X(7)/(COD_ace*MW_ace)))*(p_gas_h2^3)*(p_gas_co2))/((X(6)/(COD_pro*MW_pro))));
    
    delG_8=(delG_H2toAce*1000) + R_inh*T_op*log((((X(7)/(COD_ace*MW_ace))^2))/((p_gas_h2^4)*(p_gas_co2^2)));
-
-   if t > 10 & t < 30
-        Xxc = 30;
-   elseif t > 30
-        Xxc = 40;
-   else 
-        Xxc = 20;
-   end
-
    
  
    
@@ -249,6 +254,8 @@ global time Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
 	rho(19) = k_dec_Xh2 * X(23);
     rho(21) = k_dec_Xhomo * X(38);
     rho(23) = k_dec_Xce * X(39);
+
+    rho(24) = k_dec_Xnox * X(13)*(1-I_ea) +k_dec_Xc4*X(13)*I_ea;
                   
 
      
@@ -350,10 +357,9 @@ global time Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
     % Mass Balance Eqn for Composite	
 
     % xxc değerini time a gör edeğiştir.
-    dX(13) = (q_in/V_liq) * (Xxc - X(13)) - rho(1) + sum(rho(13:19));
-    %dX(13) = Xxc - X(13);
-    %dX(13) = xxcfonk(t, q_in, V_liq, Xxc, X(13), rho(1), sum(rho(13:19)));
+    %dX(13) = (q_in/V_liq) * (Xxc - X(13)) - rho(1) + sum(rho(13:19));
 
+    dX(13) = (q_in/V_liq) * (Xxc - X(13)) - rho(1) + sum(rho(13:19));
 
     % Mass Balance Eqn for Carbohydrates
 	dX(14) = (q_in/V_liq) * (Xch - X(14)) + f_ch_xc * rho(1) - rho(2);

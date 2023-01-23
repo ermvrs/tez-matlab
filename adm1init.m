@@ -200,6 +200,7 @@ global Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
     k_m_homo=60; % Homoacetogens kg COD/kgCOD.d
     K_S_homo=5.5e-6; % Homoacetogens kg COD/m3
     
+    
     k_dec_Xsu = 0.01;  % The value was 0.02 d-1 in the original ADM1 Model
     k_dec_Xaa = 0.01;
     k_dec_Xfa = 0.01;
