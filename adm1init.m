@@ -160,7 +160,7 @@ global Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
     % Legend:
     %   k_i denotes kinetic rate coefficient of component i
 
-    k_dis = 0.5;   % Modified
+    k_dis = 0.2;   % Modified
     k_hyd_ch = 0.1;%0.3; % Modified (Carbohydrate hydrolysis rate constant)
     k_hyd_pr =0.1;%0.2; % Modified (Protein hydrolysis rate constant)
     k_hyd_li = 0.1;%0.1; % Modified (Lipid hydrolysis rate constant)
@@ -284,7 +284,7 @@ global Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
     K_H_co2 =  0.0271;  %0.035*exp(deltaH0_KH_co2/(R*100)*(1/298.15-1/Top))		
     K_H_ch4 = 0.00116;  %0.0014*exp(deltaH0_KH_ch4/(R*100)*(1/298.15-1/Top))	
     K_H_h2 = 7.38e-4;   %7.8e-4*exp(deltaH0_KH_h2/(R*100)*(1/298.15-1/Top))		
-							
+
 
     time=0:0.2:70;
     [t,dX]=ode15s('adm1sys', time, [Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI Xxc Xch Xpr Xli Xsu Xaa Xfa Xc4 Xpro Xac Xh2 XI Scat San Shva Shbu Shpro...

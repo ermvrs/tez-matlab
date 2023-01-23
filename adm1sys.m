@@ -97,15 +97,6 @@ global time Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
     K_S_no = 0.028;
     K_S_n2o = 0.056;
     k_dec_Xnox = 0.5;
-
-    if t>= 10 & t<30
-        Xxc = 30;
-    elseif t>30
-        Xxc = 40;
-    else
-        Xxc = 20;
-    end;
-    
     I5 = I_pH_aa * I_IN_lim;
 	I6 = I_pH_aa * I_IN_lim;
 	I7 = I_pH_aa * I_IN_lim ;
@@ -139,8 +130,7 @@ global time Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
    % 1: glucose to acetate and hydrogen, 2: glocuse to propionate
    %3 glucose to butyrate 4: LCFA to Acetate, 5: Va to acetate and
    %propionate, 6 butyrate to acetate, 7: propionate to acetate
-       
-   
+
   if p_gas_h2<0.0006
       n1_su=0.5;%0.52;
       n2_su=0.02;
@@ -358,7 +348,7 @@ global time Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
 
     % xxc değerini time a gör edeğiştir.
     %dX(13) = (q_in/V_liq) * (Xxc - X(13)) - rho(1) + sum(rho(13:19));
-
+    
     dX(13) = (q_in/V_liq) * (Xxc - X(13)) - rho(1) + sum(rho(13:19));
 
     % Mass Balance Eqn for Carbohydrates
@@ -462,7 +452,7 @@ global time Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
     X0(38)=Xhomo; %Biomass (Homoacetogens)
     X0(39)=XCE; %Chain elongation bacteria
     X0(40)=Slac;%Lactic acid
-    X0(41)=Sca;% Caproic acid           
+    X0(41)=Sca;% Caproic acid       
     %feed extension
   %  X0(37) = X_ch_feed;
   %  X0(38) = X_pr_feed;
