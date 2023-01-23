@@ -1,0 +1,612 @@
+%------------------------------------------------------------------------%
+%            MATLAB IMPLEMENTATION OF ADM-1 WITH NITRATE REDUCTION       %  
+%                Tugtas A. E., Tezel U. and Pavlostathis S. G.           %
+%------------------------------------------------------------------------%
+
+% Denitrifying population is the portion of C4VFA and propionate
+% utilizers. There is no separate microbial group for denitrification
+% Electron acceptor switching factor is NOT USED. Only the methanogens are affected from
+% the inhibitory effects of NOx compounds. Fermenters (C4VFA and propionate
+%utilizers) grow normally in the absence of NOx. However, in the presence
+%of NOx certain portion grows with higher yield. Switching factor used to
+%account for the growth.
+
+function [sys,X0]=ADM1Reactor(t,X,U,flag);
+
+global Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI Xxc Xch Xpr Xli Xsu Xaa Xfa ... 
+       Xc4 Xpro Xac Xh2 XI Scat San Shva Shbu Shpro Shac Shco3 Snh3 S_H_ion S_gas_h2 S_gas_ch4 S_gas_co2 ...
+       Ssu_in Saa_in Sfa_in Sva_in Sbu_in Spro_in Sac_in Sh2_in Sch4_in SIC_in SIN_in SI_in Xxc_in Xch_in Xpr_in ...
+       Xli_in Xsu_in Xaa_in Xfa_in Xc4_in Xpro_in Xac_in Xh2_in XI_in Scat_in San_in Phi X_H_temp q_in ...
+       V_liq V_gas tres_x q_in tout time out DEBUG tempflag ...
+       f_sI_xc f_xI_xc f_ch_xc f_pr_xc f_li_xc N_xc N_I f_fa_li f_h2_su...
+ 	   f_bu_su f_pro_su f_ac_su f_h2_aa f_va_aa f_bu_aa f_pro_aa f_ac_aa...
+ 	   N_aa N_bac k_dis k_hyd_ch k_hyd_pr k_hyd_li...
+ 	   k_dec_Xsu k_dec_Xaa k_dec_Xfa k_dec_Xc4 k_dec_Xpro k_dec_Xac k_dec_Xh2...
+ 	   K_S_IN k_m_su K_S_su Y_su k_m_aa K_S_aa Y_aa k_m_fa K_S_fa Y_fa K_Ih2_fa...
+ 	   k_m_c4 K_S_c4 Y_c4 K_Ih2_c4 k_m_pro K_S_pro Y_pro K_Ih2_pro...
+ 	   k_m_ac K_S_ac Y_ac K_I_nh3 k_m_h2 K_S_h2 Y_h2...
+ 	   pH_UL_aa pH_LL_aa pH_UL_ac pH_LL_ac pH_UL_h2 pH_LL_h2...
+ 	   T_op V_liq V_gas K_w K_a_va K_a_bu K_a_pro K_a_ac K_a_co2 K_a_IN...
+ 	   k_A_Bva k_A_Bbu k_A_Bpro k_A_Bac k_A_Bco2 k_A_BIN R P_atm p_gas_h2o...
+       K_H_co2 K_H_ch4 K_H_h2 kLa Cvsum1 Cvsum2 Cvsum3 Cvsum4 Cvsum5 Cvsum6...
+       Cvsum7 Cvsum8 Cvsum9 Cvsum10 Cvsum11 Cvsum12 Cvsum13_19... 
+	   C_su C_aa C_fa C_va C_bu C_pro C_ac C_ch4 C_sI C_xc C_ch C_pr C_li C_bac C_xI q_in...
+       NO3_in NO2_in NO_in N2O_in N2_in NOx Xnox_in Snox ...
+       k_dec_Xnox k_no3_su k_no2_su k_no_su k_n2o_su k_no3_aa k_no2_aa k_no_aa k_n2o_aa k_no3_fa k_no2_fa k_no_fa k_n2o_fa...
+       k_no3_va k_no2_va k_no_va k_n2o_va k_no3_bu k_no2_bu k_no_bu k_n2o_bu k_no3_pro k_no2_pro k_no_pro k_n2o_pro...
+       k_no3_ac k_no2_ac k_no_ac k_n2o_ac k_no3_h2 k_no2_h2 k_no_h2 k_n2o_h2...
+       K_S_su_no3 K_S_su_no2 K_S_su_no K_S_su_n2o K_S_aa_no3 K_S_aa_no2 K_S_aa_no K_S_aa_n2o K_S_fa_no3 K_S_fa_no2 K_S_fa_no K_S_fa_n2o...
+       K_S_va_no3 K_S_va_no2 K_S_va_no K_S_va_n2o K_S_bu_no3 K_S_bu_no2 K_S_bu_no K_S_bu_n2o K_S_pro_no3 K_S_pro_no2 K_S_pro_no K_S_pro_n2o...
+       K_S_ac_no3 K_S_ac_no2 K_S_ac_no K_S_ac_n2o K_S_h2_no3 K_S_h2_no2 K_S_h2_no K_S_h2_n2o K_S_no3 K_S_no2 K_S_no K_S_n2o...
+       p_gas_no p_gas_n2o p_gas_n2 K_H_no K_H_n2o K_H_n2...
+       Y_su_nox Y_aa_nox Y_fa_nox Y_va_nox Y_bu_nox Y_pro_nox Y_ac_nox Y_h2_nox...
+       K_I_NO2 K_I_NO K_I_NO3 K_I_N2O...
+       X_nox Sno3 Sno2 Sno Sn2o Sn2 q_gas S_gas_no S_gas_n2o S_gas_n2 pH_LL_nox pH_UL_nox...
+       f_no3_su f_no3_aa f_no3_fa f_no3_va f_no3_bu f_no3_pro f_no3_ac f_no3_h2...
+       f_no2_su f_no2_aa f_no2_fa f_no2_va f_no2_bu f_no2_pro f_no2_ac f_no2_h2...
+       f_no_su f_no_aa f_no_fa f_no_va f_no_bu f_no_pro f_no_ac f_no_h2...
+       f_n2o_su f_n2o_aa f_n2o_fa f_n2o_va f_n2o_bu f_n2o_pro f_n2o_ac f_n2o_h2...
+       c_no3_su c_no3_aa c_no3_fa c_no3_va c_no3_bu c_no3_pro c_no3_ac c_no3_h2...
+       c_no2_su c_no2_aa c_no2_fa c_no2_va c_no2_bu c_no2_pro c_no2_ac c_no2_h2...
+       c_no_su c_no_aa c_no_fa c_no_va c_no_bu c_no_pro c_no_ac c_no_h2...
+       c_n2o_su c_n2o_aa c_n2o_fa c_n2o_va c_n2o_bu c_n2o_pro c_n2o_ac c_n2o_h2 S_co2...
+       k_hyd_ch_feed k_hyd_pr_feed k_hyd_li_feed X_ch_feed X_pr_feed X_li_feed X_ch_feed_in X_pr_feed_in X_li_feed_in a
+    
+
+   
+
+% Return Dynamic State Derivatives
+switch flag,
+       
+case 1,
+
+    tempflag = tempflag + 1;
+    % Read INPUT Values (Steady-State Input Variables + Additional Defined Variables)
+    % from Mixing Multiplexer into ADM1 Reactor Module for processing.
+        
+    if DEBUG
+        disp (['DEBUG Mode:  Function Loop Iteration #: = ', num2str(tempflag)]);
+        disp (['Reading Steady-State Reactor Variables from Input Feed.']);
+    end
+    Ssu_in=U(1); if DEBUG disp(['[ Ssu_in ] = ', num2str(Ssu_in(1,1))]); end
+    Saa_in=U(2); if DEBUG disp(['[ Saa_in ] = ', num2str(Saa_in(1,1))]); end
+    Sfa_in=U(3); if DEBUG disp(['[ Sfa_in ] = ', num2str(Sfa_in(1,1))]); end
+    Sva_in=U(4); if DEBUG disp(['[ Sva_in ] = ', num2str(Sva_in(1,1))]); end
+    Sbu_in=U(5); if DEBUG disp(['[ Sbu_in ] = ', num2str(Sbu_in(1,1))]); end
+    Spro_in=U(6); if DEBUG disp(['[ Spro_in ] = ', num2str(Spro_in(1,1))]); end
+    Sac_in=U(7); if DEBUG disp(['[ Sac_in ] = ', num2str(Sac_in(1,1))]); end
+    Sh2_in=U(8); if DEBUG disp(['[ Sh2_in ] = ', num2str(Sh2_in(1,1))]); end
+    Sch4_in=U(9); if DEBUG disp(['[ Sch4_in ] = ', num2str(Sch4_in(1,1))]); end
+    SIC_in=U(10); if DEBUG disp(['[ SIC_in ] = ', num2str(SIC_in(1,1))]); end
+    SIN_in=U(11); if DEBUG disp(['[ SIN_in ] = ', num2str(SIN_in(1,1))]); end
+    SI_in=U(12); if DEBUG disp(['[ SI_in ] = ', num2str(SI_in(1,1))]); end
+    Xxc_in=U(13); if DEBUG disp(['[ Xxc_in ] = ', num2str(Xxc_in(1,1))]); end
+    Xch_in=U(14); if DEBUG disp(['[ Xch_in ] = ', num2str(Xch_in(1,1))]); end
+    Xpr_in=U(15); if DEBUG disp(['[ Xpr_in ] = ', num2str(Xpr_in(1,1))]); end
+    Xli_in=U(16); if DEBUG disp(['[ Xli_in ] = ', num2str(Xli_in(1,1))]); end
+    Xsu_in=U(17); if DEBUG disp(['[ Xsu_in ] = ', num2str(Xsu_in(1,1))]); end
+    Xaa_in=U(18); if DEBUG disp(['[ Xaa_in ] = ', num2str(Xaa_in(1,1))]); end
+    Xfa_in=U(19); if DEBUG disp(['[ Xfa_in ] = ', num2str(Xfa_in(1,1))]); end
+    Xc4_in=U(20); if DEBUG disp(['[ Xc4_in ] = ', num2str(Xc4_in(1,1))]); end
+    Xpro_in=U(21); if DEBUG disp(['[ Xpro_in ] = ', num2str(Xpro_in(1,1))]); end
+    Xac_in=U(22); if DEBUG disp(['[ Xac_in ] = ', num2str(Xac_in(1,1))]); end
+    Xh2_in=U(23); if DEBUG disp(['[ Xh2_in ] = ', num2str(Xh2_in(1,1))]); end
+    XI_in=U(24); if DEBUG disp(['[ XI_in ] = ', num2str(XI_in(1,1))]); end
+    Scat_in=U(25); if DEBUG disp(['[ Scat_in ] = ', num2str(Scat_in(1,1))]); end
+    San_in=U(26); if DEBUG disp(['[ San_in ] = ', num2str(San_in(1,1))]); end
+    q_in=U(27); if DEBUG disp(['[ q_in ] = ', num2str(q_in(1,1))]); end
+    V_liq=U(28); if DEBUG disp(['[ V_liq ] = ', num2str(V_liq(1,1))]); end
+    V_gas=U(29); if DEBUG disp(['[ V_gas ] = ', num2str(V_gas(1,1))]); end
+    NO3_in=U(32);
+    NO2_in=U(33);
+    NO_in=U(34);
+    N2O_in=U(35);
+    N2_in=U(36);
+    Xnox_in=U(37);
+    X_ch_feed_in = U(38);
+    X_pr_feed_in = U(39);
+    X_li_feed_in = U(40);
+ 
+    tres_x=U(30); if DEBUG disp(['[ tres_x ] = ', num2str(tres_x(1,1))]); end
+    DEBUG=U(31); if DEBUG disp(['[ DEBUGGER Mode (0 = OFF, 1 = ON) ] = ', num2str(DEBUG(1,1))]); end
+    if DEBUG disp(['DEBUG Mode: Steady-State Input Variables Successfully Read.']); end
+          
+    
+     
+    % WATER PHASE
+    
+    % S_H+ calculation 
+ 	Phi = X(25) + (X(11)-X(32)) - X(31) - X(30)/64 - X(29)/112 - X(28)/160 - X(27)/208 - X(26);
+    
+    % S_H+ Calculation
+    % (Alternative pH Calc Expression)  S_H_ion = -Phi * 0.5 + 0.5 * sqrt(Phi * Phi + 4.0 * K_w);
+    S_H_ion = - (Phi / 2) + sqrt(Phi^2 + 4 * K_w) / 2;
+    pH_op = -log10(S_H_ion);   % Operating pH of system - Calculate Operating pH from S_H_ion concentration
+    if DEBUG disp(['Operating pH of Reactor = ', num2str(pH_op(1,1))]); end
+
+    X_H_temp = - Phi/2 + sqrt(Phi^2 + 4*K_w)/2;
+ 	dX(33) = X_H_temp - X(33);
+
+	% Inhibition:
+	pH=-log10(X(33)); % calculate pH from S_H+
+	if pH < pH_UL_aa
+		I_pH_aa = exp(-3*((pH - pH_UL_aa)/(pH_UL_aa - pH_LL_aa))^2);
+    else
+		I_pH_aa = 1;
+    end
+	if pH < pH_UL_ac
+		I_pH_ac = exp(-3*((pH - pH_UL_ac)/(pH_UL_ac - pH_LL_ac))^2);
+    else
+		I_pH_ac = 1;
+    end
+	if pH < pH_UL_h2
+		I_pH_h2 = exp(-3*((pH - pH_UL_h2)/(pH_UL_h2 - pH_LL_h2))^2);
+    else
+		I_pH_h2 = 1;
+    end
+    
+    if pH < pH_UL_nox
+		I_pH_nox = exp(-3*((pH - pH_UL_nox)/(pH_UL_nox - pH_LL_nox))^2);
+    else
+		I_pH_nox = 1;
+    end
+    %__________________________________
+    % SHOCK LOAD OF NITRATE
+       if t>100 & t<102
+          NO3_in=0.75;
+       elseif t>101 
+          NO3_in=0;
+       end 
+    %__________________________________
+    % Inhibition Effect Calculations
+    % ------------------------------------------------------
+    I_IN_lim = 1 / (1 + K_S_IN / X(11));    %K_S_IN
+    I_h2_fa = 1 /(1 + X(8) / K_Ih2_fa);
+    I_h2_c4 = 1 / (1 + X(8) / K_Ih2_c4);
+    I_h2_pro = 1 / (1 + X(8) / K_Ih2_pro);
+    I_h2_nh3 = 1; %1 / (1 + X(32) / K_I_nh3);
+    
+    % NO2 and NO inhibition
+    I_NO2 = 1 / (1 + X(39)/ K_I_NO2);
+    I_NO = 1 / (1+ X(40)/K_I_NO);
+    I_NO3 = 1 / (1+ X(38)/K_I_NO3);
+    I_N2O = 1 / (1+ X(41)/K_I_N2O);
+    I13 = I_NO2 * I_NO * I_NO3 * I_N2O;
+    
+    % ELECTRON ACCEPTOR SWITCHING FACTORS
+    I_ea = (K_S_no3/(K_S_no3 + X(38))) * (K_S_no2/(K_S_no2 + X(39))) * (K_S_no/(K_S_no + X(40))) * (K_S_n2o/(K_S_n2o + X(41)));
+
+	I5 = I_pH_aa * I_IN_lim;
+	I6 = I_pH_aa * I_IN_lim;
+	I7 = I_pH_aa * I_IN_lim * I_h2_fa;
+	I8 = I_pH_aa * I_IN_lim * I_h2_c4;
+	I9 = I_pH_aa * I_IN_lim * I_h2_c4;
+	I10 =I_pH_aa * I_IN_lim * I_h2_pro;
+	I11 = I_pH_ac * I_IN_lim * I_h2_nh3;
+	I12 = I_pH_h2 * I_IN_lim;
+
+	% Process Reaction Rate Calculations:
+	rho(1) = k_dis * X(13);
+	rho(2) = k_hyd_ch * X(14);
+	rho(3) = k_hyd_pr * X(15);
+	rho(4) = k_hyd_li * X(16);
+    
+    rho(21) = k_hyd_ch_feed * X(46);
+    rho(22) = k_hyd_pr_feed * X(47);
+    rho(23) = k_hyd_li_feed * X(48);
+	
+	rho(5) = k_m_su * (X(1)/(K_S_su + X(1))) * X(17) * I5; %* I13 * I_ea;
+	rho(6) = k_m_aa * (X(2)/(K_S_aa + X(2))) * X(18) * I6; % * I13 * I_ea;
+	rho(7) = k_m_fa * (X(3)/(K_S_fa + X(3))) * X(19) * I7; % * I13 *I_ea;
+	
+    rho(8) = k_m_c4 * (X(4)/(K_S_c4 + X(4))) * X(4)/(X(4) + X(5) + 1e-6) * ((X(20)*I8)+(((X(4))/(X(4)+X(5)+X(6)+10^(-6)))*X(37)*I_ea*I_pH_nox)) ; %* I13 * I_ea;
+	rho(9) = k_m_c4 * (X(5)/(K_S_c4 + X(5))) * X(5)/(X(5) + X(4) + 1e-6) * ((X(20)*I9)+(((X(5))/(X(4)+X(5)+X(6)+10^(-6)))*X(37)*I_ea*I_pH_nox*I_pH_nox)) ; %* I13 * I_ea
+    rho(10) = k_m_pro * (X(6)/(K_S_pro + X(6))) * ((X(21)*I10)+(((X(6))/(X(4)+X(5)+X(6)+10^(-6)))*X(37)*I_ea*I_pH_nox));  % * I13 * I_ea;
+
+    rho(11) = k_m_ac * (X(7)/(K_S_ac + X(7))) * X(22) * I11 * I13; %*I_ea;
+	rho(12) = k_m_h2 * (X(8)/(K_S_h2 + X(8))) * X(23) * I12 * I13; %*I_ea;
+
+	rho(13) = k_dec_Xsu * X(17);
+	rho(14) = k_dec_Xaa * X(18);
+	rho(15) = k_dec_Xfa * X(19);
+	rho(16) = k_dec_Xc4 * X(20);
+	rho(17) = k_dec_Xpro * X(21);
+	rho(18) = k_dec_Xac * X(22);
+	rho(19) = k_dec_Xh2 * X(23);
+    rho(20) = k_dec_Xnox * X(37)*(1-I_ea) +k_dec_Xc4*X(37)*I_ea;
+    
+    %-------------NOx REDUCTION EXTENSIONS-----------------------
+    %NOx reduction
+
+    NO3 = (X(38)/(K_S_no3 + X(38))) * X(37) * I_pH_nox; %NO3 reduction
+    NO2 = (X(39)/(K_S_no2 + X(39))) * X(37) * I_pH_nox; %NO2 reduction
+    NO = (X(40)/(K_S_no + X(40))) * X(37) * I_pH_nox; %NO reduction
+    N2O = (X(41)/(K_S_n2o + X(41))) * X(37)* I_pH_nox; %N2O reduction
+  
+    %Switching factors for substrates used in NOx reduction
+    
+    %for sugars
+    NO3_su = k_no3_su * (X(1)/(K_S_su_no3 + X(1))) * NO3 ; %NO3
+    NO2_su = k_no2_su * (X(1)/(K_S_su_no2 + X(1))) * NO2; %NO2
+    NO_su = k_no_su * (X(1)/(K_S_su_no + X(1))) * NO; %NO
+    N2O_su = k_n2o_su * (X(1)/(K_S_su_n2o + X(1))) * N2O; %N2O
+    
+    %for Amino acids
+    NO3_aa= k_no3_aa * (X(2)/(K_S_aa_no3 + X(2))) * NO3; %NO3
+    NO2_aa= k_no2_aa * (X(2)/(K_S_aa_no2 + X(2))) * NO2; %NO2
+    NO_aa= k_no_aa * (X(2)/(K_S_aa_no + X(2))) * NO; %NO
+    N2O_aa= k_n2o_aa * (X(2)/(K_S_aa_n2o + X(2))) * N2O; %N2O
+    
+    %for LCFAs
+    NO3_fa = k_no3_fa * (X(3)/(K_S_fa_no3 + X(3))) * NO3;
+    NO2_fa = k_no2_fa * (X(3)/(K_S_fa_no2 + X(3))) * NO2;
+    NO_fa = k_no_fa * (X(3)/(K_S_fa_no + X(3))) * NO;
+    N2O_fa = k_n2o_fa * (X(3)/(K_S_fa_n2o + X(3))) * N2O;
+    
+    %for valerate
+    NO3_va = k_no3_va * (X(4)/(K_S_va_no3 + X(4))) * X(4)/(X(4) + X(5) + 1e-6) * NO3;
+    NO2_va = k_no2_va * (X(4)/(K_S_va_no2 + X(4))) * X(4)/(X(4) + X(5) + 1e-6) * NO2;
+    NO_va = k_no_va * (X(4)/(K_S_va_no + X(4))) * X(4)/(X(4) + X(5) + 1e-6) * NO;
+    N2O_va = k_n2o_va * (X(4)/(K_S_va_n2o + X(4))) * X(4)/(X(4) + X(5) + 1e-6) * N2O;
+    
+    %for butyrate
+    NO3_bu = k_no3_bu * (X(5)/(K_S_bu_no3 + X(5))) * X(5)/(X(5) + X(4) + 1e-6) * NO3;
+    NO2_bu = k_no2_bu * (X(5)/(K_S_bu_no2 + X(5))) * X(5)/(X(5) + X(4) + 1e-6) * NO2;
+    NO_bu = k_no_bu * (X(5)/(K_S_bu_no + X(5))) * X(5)/(X(5) + X(4) + 1e-6) * NO;
+    N2O_bu = k_n2o_bu * (X(5)/(K_S_bu_n2o + X(5))) * X(5)/(X(5) + X(4) + 1e-6) * N2O;
+    
+    %for propionate
+    NO3_pro = k_no3_pro * (X(6)/(K_S_pro_no3 + X(6))) * NO3;
+    NO2_pro = k_no2_pro * (X(6)/(K_S_pro_no2 + X(6))) * NO2;
+    NO_pro = k_no_pro * (X(6)/(K_S_pro_no + X(6))) * NO;
+    N2O_pro = k_n2o_pro * (X(6)/(K_S_pro_n2o + X(6))) * N2O;
+    
+    %for acetate
+    NO3_ac = k_no3_ac * (X(7)/(K_S_ac_no3 + X(7))) * NO3;
+    NO2_ac = k_no2_ac * (X(7)/(K_S_ac_no2 + X(7))) * NO2;
+    NO_ac = k_no_ac * (X(7)/(K_S_ac_no + X(7))) * NO;
+    N2O_ac = k_n2o_ac * (X(7)/(K_S_ac_n2o + X(7))) * N2O;
+    
+    %for hydrogen
+    NO3_h2 = k_no3_h2 * (X(8)/(K_S_h2_no3 + X(8))) * NO3;
+    NO2_h2 = k_no2_h2 * (X(8)/(K_S_h2_no2 + X(8))) * NO2;
+    NO_h2 = k_no_h2 * (X(8)/(K_S_h2_no + X(8))) * NO;
+    N2O_h2 = k_n2o_h2 * (X(8)/(K_S_h2_n2o + X(8))) * N2O;
+    
+    %---------------------------------------------------------------------
+ 
+	% Acid - base rates (X(33) = S_H+)
+    rhoA4 = k_A_Bva*(X(27) * (K_a_va + X(33)) - K_a_va*X(4));
+	rhoA5 = k_A_Bbu*(X(28) * (K_a_bu + X(33)) - K_a_bu*X(5));
+	rhoA6 = k_A_Bpro*(X(29) * (K_a_pro + X(33)) - K_a_pro*X(6));
+	rhoA7 = k_A_Bac*(X(30) * (K_a_ac + X(33)) - K_a_ac*X(7));
+    rhoA10 = k_A_Bco2*(X(31) * (K_a_co2 + X(33)) - K_a_co2*X(10));
+	rhoA11 = k_A_BIN*(X(32) * (K_a_IN + X(33)) - K_a_IN * X(11));
+
+	% GAS PHASE CALCULATIONS (Algebraic Equations)
+    % R Units: [bar m3/kmol K],   T_op Units: [K] it affects only the total gas flow but not the relation between components in the gas.
+	p_gas_h2 = X(34) * R * T_op/16;  % [bar] (16 kg-COD/kmol H2).
+    if DEBUG disp(['Partial Pressure of Hydrogen Gas = ', num2str(p_gas_h2)]); end
+	p_gas_ch4 = X(35) * R * T_op/64; % [bar] (64 kg-COD/kmol CH4).
+    if DEBUG disp(['Partial Pressure pf Methane Gas = ', num2str(p_gas_ch4)]); end
+	p_gas_co2 = X(36) * R * T_op;    % [bar] (no COD value for CO2 - completely oxidized form).
+    if DEBUG disp(['Partial Pressure of Carbon Dioxide = ', num2str(p_gas_co2)]); end
+    p_gas_no = X(43) * R * T_op;    % [bar] 
+    if DEBUG disp(['Partial Pressure of NO = ', num2str(p_gas_no)]); end
+    p_gas_n2o = X(44) * R * T_op;    % [bar]
+    if DEBUG disp(['Partial Pressure of N2O = ', num2str(p_gas_n2o)]); end
+    p_gas_n2 = X(45) * R * T_op;    % [bar]
+    if DEBUG disp(['Partial Pressure of Nitrogen = ', num2str(p_gas_n2)]); end
+    
+	% Gas transfer rates 
+	rhoT8 = kLa * (X(8) - 16 * K_H_h2 * p_gas_h2); 
+	rhoT9 = kLa * (X(9) - 64 * K_H_ch4*p_gas_ch4); 
+	rhoT10 = kLa * (X(10) - X(31) - K_H_co2 * p_gas_co2);
+    
+    % Gas Transfer rates for NOx
+    rho_no = kLa * (X(40) - K_H_no * p_gas_no);
+    rho_n2o = kLa * (X(41) - K_H_n2o * p_gas_n2o);
+    rho_n2 = kLa * (X(42) - K_H_n2 * p_gas_n2);
+
+	% Algebraic equations 
+	q_gas = ((R * T_op) / (P_atm - p_gas_h2o)) * V_liq * (rhoT8/16 + rhoT9/64 + rhoT10 + rho_no + rho_n2o + rho_n2);
+	q_gas=max(q_gas,0);
+     
+       
+	% Precalculation of term in equation for state 10 (S_IC)
+	sumproc = Cvsum1*rho(1) + Cvsum2*rho(2) + Cvsum3*rho(3) + Cvsum4*rho(4) +...
+        Cvsum5*rho(5) + Cvsum6*rho(6) + Cvsum7*rho(7) + Cvsum8*rho(8) + Cvsum9*rho(9) +...
+        Cvsum10*rho(10) + Cvsum11*rho(11) + Cvsum12*rho(12)+ Cvsum13_19*sum(rho(13:20));
+
+    % Bioreactor Mass Balance Calculations
+    % [Based on ADM1 Model Mass Balance Definitions]
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    % Differential equations (soluble matter):
+    % -----------------------------------------------------------------
+    % Mass Balance Eqn for Monosaccharides
+	dX(1) = (q_in/V_liq) * (Ssu_in - X(1)) + rho(2) + rho(21) + (1 - f_fa_li) * (rho(4) + rho(23)) - rho(5) - NO3_su - NO2_su - ...
+        NO_su - N2O_su;
+    
+    % Mass Balance Eqn for Amino Acids
+    dX(2) = (q_in/V_liq) * (Saa_in - X(2)) + rho(3) + rho(22) - rho(6) - NO3_aa - NO2_aa - ...
+        NO_aa - N2O_aa;
+    
+    % Mass Balance Eqn for Total Long Chain Fatty Acids (LCFA)
+    dX(3) = (q_in/V_liq) * (Sfa_in - X(3)) + f_fa_li * (rho(4) + rho(23)) - rho(7) - NO3_fa - NO2_fa - ...
+        NO_fa - N2O_fa; 
+    
+    % Mass Balance Eqn for Total Valerate
+    dX(4) = (q_in/V_liq) * (Sva_in - X(4)) + (1 - Y_aa) * f_va_aa*rho(6) - rho(8) - NO3_va - NO2_va - ...
+        NO_va - N2O_va;
+    
+    % Mass Balance Eqn for Total Butyrate
+	dX(5) = (q_in/V_liq) * (Sbu_in - X(5)) + (1 - Y_su) * f_bu_su*rho(5) + (1 - Y_aa) * f_bu_aa * rho(6) - rho(9)- ...
+        NO3_bu - NO2_bu - NO_bu - N2O_bu;
+    
+    % Mass Balance Eqn for Total Propionate
+	dX(6) = (q_in/V_liq) * (Spro_in - X(6)) + (1 - Y_su) * f_pro_su * rho(5) + (1 - Y_aa) * f_pro_aa * rho(6) + (1 - Y_c4) * 0.54 * rho(8) - rho(10) - ...
+        NO3_pro - NO2_pro - NO_pro - N2O_pro;
+    
+    % Mass Balance Eqn for Total Acetate
+	dX(7) = (q_in/V_liq) * (Sac_in - X(7)) + (1 - Y_su) * f_ac_su * rho(5) + (1 - Y_aa) * f_ac_aa * rho(6) + ...
+	(1 - Y_fa)*0.7 * rho(7) + (1 - Y_c4) * 0.31 * rho(8) + (1-Y_c4) * 0.8 * rho(9) + (1 - Y_pro) * 0.57 * rho(10) - ...
+	rho(11) -  NO3_ac - NO2_ac - NO_ac - N2O_ac ;
+
+    % Mass Balance Eqn for Hydrogen
+	dX(8) = (q_in/V_liq) * (Sh2_in - X(8)) + (1 - Y_su) * f_h2_su * rho(5) + (1 - Y_aa) * f_h2_aa * rho(6) + ...
+	(1 - Y_fa) * 0.3 * rho(7) + (1 - Y_c4) * 0.15 * rho(8) + (1-Y_c4) * 0.2 * rho(9) + (1 - Y_pro) * 0.43 * rho(10) - ...
+	rho(12) - rhoT8 -  NO3_h2 - NO2_h2 - NO_h2 - N2O_h2;
+
+    % Mass balance for NO3
+    dX(38) = (q_in/V_liq) * (NO3_in - X(38)) - (f_no3_su * NO3_su + ...
+        f_no3_aa * NO3_aa + f_no3_fa * NO3_fa + f_no3_va * NO3_va + f_no3_bu * NO3_bu + f_no3_pro * NO3_pro + f_no3_ac * NO3_ac + f_no3_h2 * NO3_h2);
+    
+    % Mass balance for NO2
+    dX(39) = (q_in/V_liq) * (NO2_in - X(39)) + (f_no3_su * NO3_su + ...
+        f_no3_aa * NO3_aa + f_no3_fa * NO3_fa + f_no3_va * NO3_va + f_no3_bu * NO3_bu + f_no3_pro * NO3_pro + f_no3_ac * NO3_ac + f_no3_h2 * NO3_h2)- ...
+        (f_no2_su * NO2_su + f_no2_aa * NO2_aa + f_no2_fa * NO2_fa + f_no2_va * NO2_va + f_no2_bu * NO2_bu + f_no2_pro * NO2_pro + f_no2_ac * NO2_ac + f_no2_h2 * NO2_h2);
+        
+    % Mass balance for NO
+    dX(40) = (q_in/V_liq) * (NO_in - X(40)) + (f_no2_su * NO2_su + f_no2_aa * NO2_aa + f_no2_fa * NO2_fa + f_no2_va * NO2_va + f_no2_bu * NO2_bu + f_no2_pro * NO2_pro + f_no2_ac * NO2_ac + f_no2_h2 * NO2_h2)- ...
+        (f_no_su * NO_su + f_no_aa * NO_aa + f_no_fa * NO_fa + f_no_va * NO_va + f_no_bu * NO_bu + f_no_pro * NO_pro + f_no_ac * NO_ac + f_no_h2 * NO_h2) - rho_no;
+    
+    % Mass balance for N2O
+    dX(41) = (q_in/V_liq) * (N2O_in - X(41)) + 0.5 * (f_no_su * NO_su + f_no_aa * NO_aa + f_no_fa * NO_fa + f_no_va * NO_va + f_no_bu * NO_bu + f_no_pro * NO_pro + f_no_ac * NO_ac + f_no_h2 * NO_h2) - ...
+        (f_n2o_su * N2O_su + f_n2o_aa * N2O_aa + f_n2o_fa * N2O_fa + f_n2o_va * N2O_va + f_n2o_bu * N2O_bu + f_n2o_pro * N2O_pro + f_n2o_ac * N2O_ac + f_n2o_h2 * N2O_h2) - rho_n2o;
+    
+    % Mass balance for N2
+    dX(42) = (q_in/V_liq) * (N2_in - X(42)) + (f_n2o_su * N2O_su + f_n2o_aa * N2O_aa + f_n2o_fa * N2O_fa + f_n2o_va * N2O_va + f_n2o_bu * N2O_bu + f_n2o_pro * N2O_pro + f_n2o_ac * N2O_ac + f_n2o_h2 * N2O_h2) - rho_n2;
+    
+    % Mass Balance Eqn for Methane	
+	dX(9) = (q_in/V_liq) * (Sch4_in - X(9)) + (1 - Y_ac) * rho(11) + (1 - Y_h2) * rho(12) - rhoT9; 
+    
+    % Mass Balance Eqn for Inorganic Carbon
+    S_co2 = (c_no3_su * NO3_su + c_no3_aa * NO3_aa + c_no3_fa * NO3_fa + c_no3_va * NO3_va + c_no3_bu * NO3_bu + c_no3_pro * NO3_pro + c_no3_ac * NO3_ac + c_no3_h2 * NO3_h2) + ...
+    (c_no2_su * NO2_su + c_no2_aa * NO2_aa + c_no2_fa * NO2_fa + c_no2_va * NO2_va + c_no2_bu * NO2_bu + c_no2_pro * NO2_pro + c_no2_ac * NO2_ac + c_no2_h2 * NO2_h2) + ...
+    (c_no_su * NO_su + c_no_aa * NO_aa + c_no_fa * NO_fa + c_no_va * NO_va + c_no_bu * NO_bu + c_no_pro * NO_pro + c_no_ac * NO_ac + c_no_h2 * NO_h2) +...
+    (c_n2o_su * N2O_su + c_n2o_aa * N2O_aa + c_n2o_fa * N2O_fa + c_n2o_va * N2O_va + c_n2o_bu * N2O_bu + c_n2o_pro * N2O_pro + c_n2o_ac * N2O_ac + c_n2o_h2 * N2O_h2);
+    
+    dX(10) = (q_in/V_liq) * (SIC_in - X(10)) - sumproc - rhoT10 + S_co2;
+    
+    % Mass Balance Eqn for Inorganic Nitrogen
+    dX(11) = (q_in/V_liq) * (SIN_in - X(11)) - Y_su * N_bac * rho(5) +(N_aa - Y_aa * N_bac) * rho(6) - Y_fa * N_bac * rho(7) - ...
+	Y_c4 * N_bac * rho(8) - Y_c4 * N_bac * rho(9) - Y_pro * N_bac * rho(10) - Y_ac * N_bac * rho(11) - ...
+	Y_h2 * N_bac * rho(12) + (N_bac - N_xc) * sum(rho(13:20)) + (N_xc - f_xI_xc * N_I - f_sI_xc * N_I - f_pr_xc * N_aa) * rho(1) + ...
+    (1/14) * (X(38) + X(39) + X(40) + 2*X(41) + 2*X(42));
+    
+    % Mass Balance Eqn for Soluable Inerts
+	dX(12) = (q_in/V_liq) * (SI_in - X(12)) + f_sI_xc * rho(1); 
+	
+    % Differential equations (particulate matter):
+    % -----------------------------------------------------------------
+    % Mass Balance Eqn for Composite	
+    dX(13) = (q_in/V_liq) * (Xxc_in - X(13)) - rho(1) + sum(rho(13:20));
+    % Mass Balance Eqn for Carbohydrates
+	dX(14) = (q_in/V_liq) * (Xch_in - X(14)) + f_ch_xc * rho(1) - rho(2);
+    dX(46) = (q_in/V_liq) * (X_ch_feed_in - X(46)) - rho(21);
+    % Mass Balance Eqn for Proteins
+	dX(15) = (q_in/V_liq) * (Xpr_in - X(15)) + f_pr_xc * rho(1) - rho(3);
+    dX(47) = (q_in/V_liq) * (X_pr_feed_in - X(47)) - rho(22);
+    % Mass Balance Eqn for Lipids
+	dX(16) = (q_in/V_liq) * (Xli_in - X(16)) + f_li_xc * rho(1) - rho(4);
+    dX(48) = (q_in/V_liq) * (X_li_feed_in - X(48)) - rho(23);
+    % Mass Balance Eqn for Biomass (Monosaccharides)	
+	dX(17) = (q_in/V_liq) * (Xsu_in - X(17)) + Y_su * rho(5) - rho(13);
+    % Mass Balance Eqn for Biomass (Amino Acids)
+	dX(18) = (q_in/V_liq) * (Xaa_in - X(18)) + Y_aa * rho(6) - rho(14);
+    % Mass Balance Eqn for Biomass (Long Chain Fatty Acids)
+	dX(19) = (q_in/V_liq) * (Xfa_in - X(19)) + Y_fa * rho(7) - rho(15);
+    % Mass Balance Eqn for Biomass (Valerate & Butyrate Combined)
+   
+   
+	dX(20) = (q_in/V_liq) * (Xc4_in - X(20)) + Y_c4 * rho(8) + Y_c4 * rho(9)- rho(16);
+
+    % Mass Balance Eqn for Biomass (Propionate)	
+    
+	dX(21) = (q_in/V_liq) * (Xpro_in - X(21)) + Y_pro * rho(10)- rho(17);
+
+    % Mass Balance Eqn for Biomass (Acetate)
+	dX(22) = (q_in/V_liq) * (Xac_in - X(22)) + Y_ac * rho(11) - rho(18);
+    % Mass Balance Eqn for Biomass (Hydrogen)
+	dX(23) = (q_in/V_liq) * (Xh2_in - X(23)) + Y_h2 * rho(12) - rho(19);
+    
+    % Mass Balance for Biomass (NOx)
+  
+        dX(37) = (q_in/V_liq) * (Xnox_in - X(37)) + (Y_su_nox * (NO3_su + NO2_su + NO_su + N2O_su) + ...
+        Y_aa_nox * (NO3_aa + NO2_aa + NO_aa + N2O_aa) + Y_fa_nox * (NO3_fa + NO2_fa + NO_fa + N2O_fa) + ...
+        Y_va_nox * (NO3_va + NO2_va + NO_va + N2O_va) + Y_bu_nox * (NO3_bu + NO2_bu + NO_bu + N2O_bu) + ...
+        Y_pro_nox * (NO3_pro + NO2_pro + NO_pro + N2O_pro) + Y_ac_nox * (NO3_ac + NO2_ac + NO_ac + N2O_ac) + ...
+        Y_h2_nox * (NO3_h2 + NO2_h2 + NO_h2 + N2O_h2))+ ...
+        Y_c4 * k_m_c4 * (X(4)/(K_S_c4 + X(4))) * (X(4)/(X(4) + X(5) + 1e-6))*(((X(4))/(X(4)+X(5)+X(6)+10^(-6)))*X(37)*I_ea*I_pH_nox)+...
+        Y_c4 * k_m_c4 * (X(5)/(K_S_c4 + X(5))) * (X(5)/(X(4) + X(5) + 1e-6))*(((X(5))/(X(4)+X(5)+X(6)+10^(-6)))*X(37)*I_ea*I_pH_nox)+...
+        Y_pro * k_m_pro * (X(6)/(K_S_pro + X(6)))*(((X(6))/(X(4)+X(5)+X(6)+10^(-6)))*X(37)*I_ea*I_pH_nox)-rho(20);
+ 
+
+    % Mass Balance Eqn for Particulate Inerts
+	dX(24) = (q_in/V_liq) * (XI_in - X(24)) + f_xI_xc * rho(1);
+	
+    % Differential equations (Cations / Anions):
+    % -----------------------------------------------------------------
+    % Mass Balance Eqn for Cations
+ 	dX(25) = (q_in/V_liq) * (Scat_in - X(25));
+    % Mass Balance Eqn for Anions
+ 	dX(26) = (q_in/V_liq) * (San_in - X(26));
+	
+	% Additional Differential Equation States
+ 	dX(27) = - rhoA4; 
+ 	dX(28) = - rhoA5; 
+ 	dX(29) = - rhoA6; 
+ 	dX(30) = - rhoA7; 
+	dX(31) = - rhoA10;
+	dX(32) = - rhoA11; 
+    
+	
+	% Gas Differential equations
+	dX(34) = -((X(34) * q_gas) / V_gas) + rhoT8 * (V_liq/V_gas);
+	dX(35) = -((X(35) * q_gas) / V_gas) + rhoT9 * (V_liq/V_gas);
+	dX(36) = -((X(36) * q_gas) / V_gas) + rhoT10 * (V_liq/V_gas);
+    dX(43) = -((X(43) * q_gas) / V_gas) + rho_no * (V_liq/V_gas);
+    dX(44) = -((X(44) * q_gas) / V_gas) + rho_n2o * (V_liq/V_gas);
+    dX(45) = -((X(45) * q_gas) / V_gas) + rho_n2 * (V_liq/V_gas);
+
+    if DEBUG 
+        disp('');
+        disp('ADM1 Anaerobic Digester Interim Results');
+        disp('*****************************************************');
+        disp(['Ssu = monosacharides (kg COD/m3) = ', num2str(dX(1))]);
+        disp(['Saa = amino acids (kg COD/m3) = ', num2str(dX(2))]);
+        disp(['Sfa = long chain fatty acids (LCFA) (kg COD/m3) = ', num2str(dX(3))]);
+        disp(['Sva = total valerate (kg COD/m3) = ', num2str(dX(4))]);
+        disp(['Sbu = total butyrate (kg COD/m3) = ', num2str(dX(5))]);
+        disp(['Spro = total propionate (kg COD/m3) = ', num2str(dX(6))]);
+        disp(['Sac = total acetate (kg COD/m3) = ', num2str(dX(7))]);
+        disp(['Sh2 = hydrogen gas in liquid (kg COD/m3) = ', num2str(dX(8))]);
+        disp(['Sch4 = methane gas in liquid (kg COD/m3) = ', num2str(dX(9))]);
+        disp(['SIC = inorganic carbon (kmole C/m3) = ', num2str(dX(10))]);
+        disp(['SIN = inorganic nitrogen (kmole N/m3) = ', num2str(dX(11))]);
+        disp(['Si = soluble inerts (kg COD/m3) = ', num2str(dX(12))]);
+        disp(['Xc = composites (kg COD/m3) = ', num2str(dX(13))]);
+        disp(['Xch = carbohydrates (kg COD/m3) = ', num2str(dX(14))]);
+        disp(['Xpr = proteins (kg COD/m3) = ', num2str(dX(15))]);
+        disp(['Xli = lipids (kg COD/m3) = ', num2str(dX(16))]);
+        disp(['Xsu = sugar degraders (kg COD/m3) = ', num2str(dX(17))]);
+        disp(['Xaa = amino acid degraders (kg COD/m3) = ', num2str(dX(18))]);
+        disp(['Xfa = LCFA degraders (kg COD/m3) = ', num2str(dX(19))]);
+        disp(['Xc4 = valerate and butyrate degraders (kg COD/m3) = ', num2str(dX(20))]);
+        disp(['Xpro = propionate degraders (kg COD/m3) = ', num2str(dX(21))]);
+        disp(['Xac = acetate degraders (kg COD/m3) = ', num2str(dX(22))]);
+        disp(['Xh2 = hydrogen degraders (kg COD/m3) = ', num2str(dX(23))]);
+        disp(['Xi = particulate inerts (kg COD/m3) = ', num2str(dX(24))]);
+        disp(['Scat = cations (kmole/m3) = ', num2str(dX(25))]);
+        disp(['San = anions (kmole/m3) = ', num2str(dX(26))]);
+        disp('');
+    end
+    
+	sys = dX';    % Copy dX/dt result to SYS
+
+% Return system outputs	
+case 3,
+	sys=X;
+% Return sizes	
+case 0,
+    
+    if DEBUG
+    disp(['Debug Mode Activated: Interim Results Displayed in Command Window.']);
+    disp(['Debug Mode: Entering ADM1 Reactor Module... Data Initialization Code Segment Executing.']);
+    end
+    warning off MATLAB:divideByZero;
+    tempflag = 0;   % Initialize Loop Counter
+ 
+    sys = [48,0,48,40,0,0];     % Initialize SYS   
+
+    % Load Current State Vector Array (X0) with Initial Reactor State Configuration Variables
+    X0(1) = Ssu;   % Monosaccharides
+    X0(2) = Saa;   % Amino Acids
+    X0(3) = Sfa;   % Total Long Chain Fatty Acids (LCFA)
+    X0(4) = Sva;   % Total Valerate
+    X0(5) = Sbu;   % Total Butyrate
+    X0(6) = Spro;  % Total Propionate
+    X0(7) = Sac;   % Total Acetate
+    X0(8) = Sh2;   % Hydrogen
+    X0(9) = Sch4;  % Methane
+    X0(10) = SIC;  % Inorganic Carbon
+    X0(11) = SIN;  % Inorganic Nitrogen
+    X0(12) = SI;   % Soluble Inerts
+    X0(13) = Xxc;  % Composite
+    X0(14) = Xch;  % Carbohydrates
+    X0(15) = Xpr;  % Proteins
+    X0(16) = Xli;  % Lipids
+    X0(17) = Xsu;  % Biomass (Monosaccharides)
+    X0(18) = Xaa;  % Biomass (Amino Acids)
+    X0(19) = Xfa;  % Biomass (Long Chain Fatty Acids)
+    X0(20) = Xc4;  % Biomass (Valerate & Butyrate Combined)
+    X0(21) = Xpro; % Biomass (Propionate)
+    X0(22) = Xac;  % Biomass (Acetate)
+    X0(23) = Xh2;  % Biomass (Hydrogen)
+    X0(24) = XI;   % Particulate Inerts
+    X0(25) = Scat; % Cations
+    X0(26) = San;  % Anions
+    X0(27) = Shva; %  
+    X0(28) = Shbu; %  
+    X0(29) = Shpro; %  
+    X0(30) = Shac;  %  
+    X0(31) = Shco3; % 
+    X0(32) = Snh3;  %
+    X0(33) = S_H_ion;   %
+
+    % Reactor Operation Variables
+    X0(34) = S_gas_h2;  % 
+    X0(35) = S_gas_ch4; % 
+    X0(36) = S_gas_co2; % 
+    
+    % NOx reduction variables
+    X0(37) = X_nox;
+    X0(38) = Sno3;
+    X0(39) = Sno2;
+    X0(40) = Sno;
+    X0(41) = Sn2o;
+    X0(42) = Sn2;
+    X0(43) = S_gas_no;
+    X0(44) = S_gas_n2o;
+    X0(45) = S_gas_n2;
+    
+
+    %feed extension
+    X0(46) = X_ch_feed;
+    X0(47) = X_pr_feed;
+    X0(48) = X_li_feed;
+
+
+    % Stoichiometric Calculations:
+    Cvsum1 = (-C_xc + f_sI_xc*C_sI + f_ch_xc*C_ch + f_pr_xc*C_pr + f_li_xc*C_li + f_xI_xc*C_xI);
+    Cvsum2 = (-C_ch + C_su);
+    Cvsum3 = (-C_pr + C_aa);
+    Cvsum4 = (-C_li + (1-f_fa_li) * C_su + f_fa_li * C_fa);
+    Cvsum5 = (-C_su + (1 - Y_su) * (f_bu_su*C_bu + f_pro_su * C_pro + f_ac_su * C_ac) +Y_su * C_bac);
+    Cvsum6 = (-C_aa + (1 - Y_aa) * (f_va_aa * C_va + f_bu_aa * C_bu + f_pro_aa * C_pro + f_ac_aa * C_ac) + Y_aa * C_bac);
+    Cvsum7 = (-C_fa + (1 - Y_fa) * 0.7 * C_ac + Y_fa * C_bac);
+    Cvsum8 = (-C_va + (1 - Y_c4) * 0.54 * C_pro + (1 - Y_c4) * 0.31 * C_ac + Y_c4 * C_bac);
+    Cvsum9 = (-C_bu + (1 - Y_c4) * 0.8 * C_ac + Y_c4 * C_bac);
+    Cvsum10 = (-C_pro + (1 - Y_pro) * 0.57 * C_ac + Y_pro * C_bac);
+    Cvsum11 = (-C_ac + (1 - Y_ac) * C_ch4 + Y_ac * C_bac);
+    Cvsum12 = ( (1 - Y_h2) * C_ch4 + Y_h2 * C_bac);
+    Cvsum13_19 = (-C_bac + C_xc);
+
+    if DEBUG disp(['Debug Mode: ADM1 Reactor Variables Successfully Initialized... Exiting Initialization Function.']); end    
+    % Anaerobic Digester Initialization Finished 
+
+case 9,
+    
+case {2, 4, 5}; 	% Unused S-function argument flags (See ADM1 on-line documentation for explanation.)
+    
+    % DISPLAYS GAS FLOW RATE on the display window
+    % disp(num2str(q_gas)); % Writes the data to display window
+    
+otherwise
+   error(['ERROR: ADM1 Reactor Module - Unprocessed Case Flag = ',num2str(flag)]);
+   % Continuous system 
+   sys=[];          % Function termination... perform cleanup sys[]
+end
+
+% ---- End ADM1 Program ---------------------------------

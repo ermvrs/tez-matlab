@@ -1,0 +1,7 @@
+% M-file exel.m
+% Transfer data to excel
+
+A=[time,out];
+fid=fopen('ADM_sheet.xls', 'a+')
+dlmwrite('ADM_xmgLNO3.xls',A,'\t')
+fclose('all')

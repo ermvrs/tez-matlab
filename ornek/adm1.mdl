@@ -1,0 +1,1939 @@
+Model {
+  Name			  "adm1"
+  Version		  6.1
+  MdlSubVersion		  0
+  GraphicalInterface {
+    NumRootInports	    0
+    NumRootOutports	    0
+    ParameterArgumentNames  ""
+    ComputedModelVersion    "1.130"
+    NumModelReferences	    0
+    NumTestPointedSignals   0
+  }
+  SavedCharacterEncoding  "ibm-5348_P100-1997"
+  PreLoadFcn		  "ADM1init"
+  SaveDefaultBlockParams  on
+  SampleTimeColors	  off
+  LibraryLinkDisplay	  "all"
+  WideLines		  on
+  ShowLineDimensions	  off
+  ShowPortDataTypes	  off
+  ShowLoopsOnError	  on
+  IgnoreBidirectionalLines off
+  ShowStorageClass	  off
+  ShowTestPointIcons	  on
+  ShowViewerIcons	  on
+  SortedOrder		  off
+  ExecutionContextIcon	  off
+  ShowLinearizationAnnotations on
+  RecordCoverage	  off
+  CovPath		  "/"
+  CovSaveName		  "covdata"
+  CovMetricSettings	  "dw"
+  CovNameIncrementing	  off
+  CovHtmlReporting	  on
+  covSaveCumulativeToWorkspaceVar on
+  CovSaveSingleToWorkspaceVar on
+  CovCumulativeVarName	  "covCumulativeData"
+  CovCumulativeReport	  off
+  CovReportOnPause	  on
+  ScopeRefreshTime	  0.035000
+  OverrideScopeRefreshTime on
+  DisableAllScopes	  off
+  DataTypeOverride	  "UseLocalSettings"
+  MinMaxOverflowLogging	  "UseLocalSettings"
+  MinMaxOverflowArchiveMode "Overwrite"
+  BlockNameDataTip	  off
+  BlockParametersDataTip  on
+  BlockDescriptionStringDataTip	off
+  ToolBar		  on
+  StatusBar		  on
+  BrowserShowLibraryLinks off
+  BrowserLookUnderMasks	  off
+  Created		  "Thu Mar  7 14:50:24 2002"
+  Creator		  "ielulf"
+  UpdateHistory		  "UpdateHistoryNever"
+  ModifiedByFormat	  "%<Auto>"
+  LastModifiedBy	  "evren.tugtas"
+  ModifiedDateFormat	  "%<Auto>"
+  LastModifiedDate	  "Tue Nov 25 12:50:01 2008"
+  ModelVersionFormat	  "1.%<AutoIncrement:130>"
+  ConfigurationManager	  "none"
+  LinearizationMsg	  "none"
+  Profile		  off
+  ParamWorkspaceSource	  "MATLABWorkspace"
+  AccelSystemTargetFile	  "accel.tlc"
+  AccelTemplateMakefile	  "accel_default_tmf"
+  AccelMakeCommand	  "make_rtw"
+  TryForcingSFcnDF	  off
+  ExtModeBatchMode	  off
+  ExtModeEnableFloating	  on
+  ExtModeTrigType	  "manual"
+  ExtModeTrigMode	  "oneshot"
+  ExtModeTrigPort	  "1"
+  ExtModeTrigElement	  "any"
+  ExtModeTrigDuration	  1000
+  ExtModeTrigDurationFloating "auto"
+  ExtModeTrigHoldOff	  0
+  ExtModeTrigDelay	  0
+  ExtModeTrigDirection	  "rising"
+  ExtModeTrigLevel	  0
+  ExtModeArchiveMode	  "off"
+  ExtModeAutoIncOneShot	  off
+  ExtModeIncDirWhenArm	  off
+  ExtModeAddSuffixToVar	  off
+  ExtModeWriteAllDataToWs off
+  ExtModeArmWhenConnect	  off
+  ExtModeSkipDownloadWhenConnect off
+  ExtModeLogAll		  on
+  ExtModeAutoUpdateStatusClock off
+  BufferReuse		  on
+  StrictBusMsg		  "None"
+  ProdHWDeviceType	  "32-bit Generic"
+  ShowModelReferenceBlockVersion off
+  ShowModelReferenceBlockIO off
+  Array {
+    Type		    "Handle"
+    Dimension		    1
+    Simulink.ConfigSet {
+      $ObjectID		      1
+      Version		      "1.0.4"
+      Array {
+	Type			"Handle"
+	Dimension		7
+	Simulink.SolverCC {
+	  $ObjectID		  2
+	  Version		  "1.0.4"
+	  StartTime		  "0.0"
+	  StopTime		  "600"
+	  AbsTol		  "1e-6"
+	  FixedStep		  "auto"
+	  InitialStep		  "auto"
+	  MaxNumMinSteps	  "-1"
+	  MaxOrder		  5
+	  ExtrapolationOrder	  4
+	  NumberNewtonIterations  1
+	  MaxStep		  "0.5"
+	  MinStep		  "auto"
+	  RelTol		  "1e-6"
+	  SolverMode		  "SingleTasking"
+	  Solver		  "ode15s"
+	  SolverName		  "ode15s"
+	  ZeroCrossControl	  "UseLocalSettings"
+	  PositivePriorityOrder	  off
+	  AutoInsertRateTranBlk	  off
+	  SampleTimeConstraint	  "Unconstrained"
+	  RateTranMode		  "Deterministic"
+	}
+	Simulink.DataIOCC {
+	  $ObjectID		  3
+	  Version		  "1.0.4"
+	  Decimation		  "1"
+	  ExternalInput		  "[t, u]"
+	  FinalStateName	  "xFinal"
+	  InitialState		  "xInitial"
+	  LimitDataPoints	  off
+	  MaxDataPoints		  "1000"
+	  LoadExternalInput	  off
+	  LoadInitialState	  off
+	  SaveFinalState	  off
+	  SaveFormat		  "Array"
+	  SaveOutput		  on
+	  SaveState		  off
+	  SignalLogging		  on
+	  SaveTime		  on
+	  StateSaveName		  "xout"
+	  TimeSaveName		  "tout"
+	  OutputSaveName	  "yout"
+	  SignalLoggingName	  "sigsOut"
+	  OutputOption		  "RefineOutputTimes"
+	  OutputTimes		  "[]"
+	  Refine		  "1"
+	}
+	Simulink.OptimizationCC {
+	  $ObjectID		  4
+	  Version		  "1.0.4"
+	  BlockReduction	  off
+	  BooleanDataType	  off
+	  ConditionallyExecuteInputs on
+	  ConditionalExecOptimization "on_for_testing"
+	  InlineParams		  off
+	  InlineInvariantSignals  on
+	  OptimizeBlockIOStorage  on
+	  BufferReuse		  on
+	  EnforceIntegerDowncast  on
+	  ExpressionFolding	  on
+	  FoldNonRolledExpr	  on
+	  LocalBlockOutputs	  on
+	  ParameterPooling	  on
+	  RollThreshold		  5
+	  SystemCodeInlineAuto	  off
+	  StateBitsets		  off
+	  DataBitsets		  off
+	  UseTempVars		  off
+	  ZeroExternalMemoryAtStartup on
+	  ZeroInternalMemoryAtStartup on
+	  InitFltsAndDblsToZero	  on
+	  NoFixptDivByZeroProtection off
+	  OptimizeModelRefInitCode off
+	  LifeSpan		  "inf"
+	}
+	Simulink.DebuggingCC {
+	  $ObjectID		  5
+	  Version		  "1.0.4"
+	  RTPrefix		  "error"
+	  ConsistencyChecking	  "none"
+	  ArrayBoundsChecking	  "none"
+	  AlgebraicLoopMsg	  "warning"
+	  ArtificialAlgebraicLoopMsg "warning"
+	  CheckSSInitialOutputMsg on
+	  CheckExecutionContextPreStartOutputMsg off
+	  CheckExecutionContextRuntimeOutputMsg	off
+	  SignalResolutionControl "TryResolveAllWithWarning"
+	  BlockPriorityViolationMsg "warning"
+	  MinStepSizeMsg	  "warning"
+	  SolverPrmCheckMsg	  "none"
+	  InheritedTsInSrcMsg	  "warning"
+	  DiscreteInheritContinuousMsg "warning"
+	  MultiTaskDSMMsg	  "warning"
+	  MultiTaskRateTransMsg	  "error"
+	  SingleTaskRateTransMsg  "none"
+	  TasksWithSamePriorityMsg "warning"
+	  CheckMatrixSingularityMsg "none"
+	  IntegerOverflowMsg	  "warning"
+	  Int32ToFloatConvMsg	  "warning"
+	  ParameterDowncastMsg	  "error"
+	  ParameterOverflowMsg	  "error"
+	  ParameterPrecisionLossMsg "warning"
+	  UnderSpecifiedDataTypeMsg "none"
+	  UnnecessaryDatatypeConvMsg "none"
+	  VectorMatrixConversionMsg "none"
+	  InvalidFcnCallConnMsg	  "error"
+	  FcnCallInpInsideContextMsg "Use local settings"
+	  SignalLabelMismatchMsg  "none"
+	  UnconnectedInputMsg	  "warning"
+	  UnconnectedOutputMsg	  "warning"
+	  UnconnectedLineMsg	  "warning"
+	  SFcnCompatibilityMsg	  "none"
+	  UniqueDataStoreMsg	  "none"
+	  RootOutportRequireBusObject "warning"
+	  AssertControl		  "UseLocalSettings"
+	  EnableOverflowDetection off
+	  ModelReferenceIOMsg	  "none"
+	  ModelReferenceVersionMismatchMessage "none"
+	  ModelReferenceIOMismatchMessage "none"
+	  ModelReferenceCSMismatchMessage "none"
+	  ModelReferenceSimTargetVerbose off
+	  UnknownTsInhSupMsg	  "warning"
+	  ModelReferenceDataLoggingMessage "warning"
+	  ModelReferenceSymbolNameMessage "warning"
+	}
+	Simulink.HardwareCC {
+	  $ObjectID		  6
+	  Version		  "1.0.4"
+	  ProdBitPerChar	  8
+	  ProdBitPerShort	  16
+	  ProdBitPerInt		  32
+	  ProdBitPerLong	  32
+	  ProdIntDivRoundTo	  "Undefined"
+	  ProdEndianess		  "Unspecified"
+	  ProdWordSize		  32
+	  ProdShiftRightIntArith  on
+	  ProdHWDeviceType	  "32-bit Generic"
+	  TargetBitPerChar	  8
+	  TargetBitPerShort	  16
+	  TargetBitPerInt	  32
+	  TargetBitPerLong	  32
+	  TargetShiftRightIntArith on
+	  TargetIntDivRoundTo	  "Undefined"
+	  TargetEndianess	  "Unspecified"
+	  TargetWordSize	  32
+	  TargetTypeEmulationWarnSuppressLevel 0
+	  TargetPreprocMaxBitsSint 32
+	  TargetPreprocMaxBitsUint 32
+	  TargetHWDeviceType	  "Specified"
+	  TargetUnknown		  on
+	  ProdEqTarget		  on
+	}
+	Simulink.ModelReferenceCC {
+	  $ObjectID		  7
+	  Version		  "1.0.4"
+	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
+	  CheckModelReferenceTargetMessage "error"
+	  ModelReferenceNumInstancesAllowed "Multi"
+	  ModelReferencePassRootInputsByReference on
+	  ModelReferenceMinAlgLoopOccurrences off
+	}
+	Simulink.RTWCC {
+	  $BackupClass		  "Simulink.RTWCC"
+	  $ObjectID		  8
+	  Version		  "1.0.4"
+	  SystemTargetFile	  "grt.tlc"
+	  GenCodeOnly		  off
+	  MakeCommand		  "make_rtw"
+	  TemplateMakefile	  "grt_default_tmf"
+	  GenerateReport	  off
+	  SaveLog		  off
+	  RTWVerbose		  on
+	  RetainRTWFile		  off
+	  ProfileTLC		  off
+	  TLCDebug		  off
+	  TLCCoverage		  off
+	  TLCAssert		  off
+	  ProcessScriptMode	  "Default"
+	  ConfigurationMode	  "Optimized"
+	  ConfigAtBuild		  off
+	  IncludeHyperlinkInReport off
+	  LaunchReport		  off
+	  Array {
+	    Type		    "Handle"
+	    Dimension		    2
+	    Simulink.CodeAppCC {
+	      $ObjectID		      9
+	      Version		      "1.0.4"
+	      ForceParamTrailComments off
+	      GenerateComments	      on
+	      IgnoreCustomStorageClasses on
+	      IncHierarchyInIds	      off
+	      MaxIdLength	      31
+	      PreserveName	      off
+	      PreserveNameWithParent  off
+	      ShowEliminatedStatement off
+	      IncAutoGenComments      off
+	      SimulinkDataObjDesc     off
+	      SFDataObjDesc	      off
+	      IncDataTypeInIds	      off
+	      PrefixModelToSubsysFcnNames on
+	      CustomSymbolStr	      "$R$N$M"
+	      MangleLength	      1
+	      DefineNamingRule	      "None"
+	      ParamNamingRule	      "None"
+	      SignalNamingRule	      "None"
+	      InsertBlockDesc	      off
+	      SimulinkBlockComments   on
+	      EnableCustomComments    off
+	      InlinedPrmAccess	      "Literals"
+	      ReqsInCode	      off
+	    }
+	    Simulink.GRTTargetCC {
+	      $BackupClass	      "Simulink.TargetCC"
+	      $ObjectID		      10
+	      Version		      "1.0.4"
+	      TargetFcnLib	      "ansi_tfl_tmw.mat"
+	      GenFloatMathFcnCalls    "ANSI_C"
+	      UtilityFuncGeneration   "Auto"
+	      GenerateFullHeader      on
+	      GenerateSampleERTMain   off
+	      IsPILTarget	      off
+	      ModelReferenceCompliant off
+	      IncludeMdlTerminateFcn  on
+	      CombineOutputUpdateFcns off
+	      SuppressErrorStatus     off
+	      IncludeFileDelimiter    "Auto"
+	      ERTCustomFileBanners    off
+	      SupportAbsoluteTime     on
+	      LogVarNameModifier      "rt_"
+	      MatFileLogging	      off
+	      MultiInstanceERTCode    off
+	      SupportNonFinite	      on
+	      SupportComplex	      on
+	      PurelyIntegerCode	      off
+	      SupportContinuousTime   on
+	      SupportNonInlinedSFcns  on
+	      ExtMode		      off
+	      ExtModeStaticAlloc      off
+	      ExtModeTesting	      off
+	      ExtModeStaticAllocSize  1000000
+	      ExtModeTransport	      0
+	      ExtModeMexFile	      "ext_comm"
+	      RTWCAPISignals	      off
+	      RTWCAPIParams	      off
+	      RTWCAPIStates	      off
+	      GenerateASAP2	      off
+	    }
+	    PropName		    "Components"
+	  }
+	}
+	PropName		"Components"
+      }
+      Name		      "Configuration"
+      SimulationMode	      "normal"
+      CurrentDlgPage	      "Solver"
+    }
+    PropName		    "ConfigurationSets"
+  }
+  Simulink.ConfigSet {
+    $PropName		    "ActiveConfigurationSet"
+    $ObjectID		    1
+  }
+  BlockDefaults {
+    Orientation		    "right"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    NamePlacement	    "normal"
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    ShowName		    on
+  }
+  BlockParameterDefaults {
+    Block {
+      BlockType		      Clock
+      DisplayTime	      off
+    }
+    Block {
+      BlockType		      Constant
+      Value		      "1"
+      VectorParams1D	      on
+      OutDataTypeMode	      "Inherit from 'Constant value'"
+      OutDataType	      "sfix(16)"
+      ConRadixGroup	      "Use specified scaling"
+      OutScaling	      "2^0"
+      SampleTime	      "inf"
+    }
+    Block {
+      BlockType		      Display
+      Format		      "short"
+      Decimation	      "10"
+      Floating		      off
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Mux
+      Inputs		      "4"
+      DisplayOption	      "none"
+      BusObject		      "BusObject"
+      NonVirtualBus	      off
+    }
+    Block {
+      BlockType		      Scope
+      Floating		      off
+      ModelBased	      off
+      TickLabels	      "OneTimeTick"
+      ZoomMode		      "on"
+      Grid		      "on"
+      TimeRange		      "auto"
+      YMin		      "-5"
+      YMax		      "5"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      LimitDataPoints	      on
+      MaxDataPoints	      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Selector
+      InputType		      "Vector"
+      IndexMode		      "One-based"
+      ElementSrc	      "Internal"
+      Elements		      "1"
+      RowSrc		      "Internal"
+      Rows		      "1"
+      ColumnSrc		      "Internal"
+      Columns		      "1"
+      InputPortWidth	      "-1"
+      IndexIsStartValue	      off
+      OutputPortSize	      "1"
+    }
+    Block {
+      BlockType		      "S-Function"
+      FunctionName	      "system"
+      SFunctionModules	      "''"
+      PortCounts	      "[]"
+    }
+    Block {
+      BlockType		      SubSystem
+      ShowPortLabels	      on
+      Permissions	      "ReadWrite"
+      PermitHierarchicalResolution "All"
+      SystemSampleTime	      "-1"
+      RTWFcnNameOpts	      "Auto"
+      RTWFileNameOpts	      "Auto"
+      SimViewingDevice	      off
+      DataTypeOverride	      "UseLocalSettings"
+      MinMaxOverflowLogging   "UseLocalSettings"
+    }
+    Block {
+      BlockType		      ToWorkspace
+      VariableName	      "simulink_output"
+      MaxDataPoints	      "1000"
+      Decimation	      "1"
+      SampleTime	      "0"
+      FixptAsFi		      off
+    }
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    "center"
+    VerticalAlignment	    "middle"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  System {
+    Name		    "adm1"
+    Location		    [2, 82, 1253, 957]
+    Open		    on
+    ModelBrowserVisibility  off
+    ModelBrowserWidth	    200
+    ScreenColor		    "yellow"
+    PaperOrientation	    "landscape"
+    PaperPositionMode	    "auto"
+    PaperType		    "usletter"
+    PaperUnits		    "inches"
+    ZoomFactor		    "100"
+    ReportName		    "simulink-default.rpt"
+    Block {
+      BlockType		      "S-Function"
+      Name		      "CSTR Reactor Module"
+      Ports		      [1, 1]
+      Position		      [500, 186, 675, 394]
+      BackgroundColor	      "orange"
+      FontSize		      18
+      FontWeight	      "bold"
+      FontAngle		      "oblique"
+      FunctionName	      "ADM1Reactor"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "DEBUG Mode"
+      Tag		      "DEBUG"
+      Position		      [505, 711, 595, 749]
+      Orientation	      "left"
+      ForegroundColor	      "red"
+      BackgroundColor	      "darkGreen"
+      Priority		      "0"
+      FontSize		      14
+      FontWeight	      "bold"
+      Value		      "0"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      ToWorkspace
+      Name		      "Data Storage Array"
+      Position		      [740, 290, 840, 330]
+      BackgroundColor	      "darkGreen"
+      Priority		      "14"
+      FontSize		      12
+      FontWeight	      "bold"
+      VariableName	      "out"
+      MaxDataPoints	      "inf"
+      SampleTime	      "-1"
+      SaveFormat	      "Array"
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "DocBlock"
+      Ports		      []
+      Position		      [719, 142, 810, 254]
+      ForegroundColor	      "white"
+      BackgroundColor	      "darkGreen"
+      ShowName		      off
+      List {
+	ListType		RTWdata
+	document_text01		"ADM1 Reactor Function Call Sescription (Funda"
+"mental Format Description)\n-------------------------------------------------"
+"----------------------\n\nUsing M-file S-functions (Simulink Functions), allo"
+"ws for the definition of\nany set of ordinary differentialequations (ODEs), d"
+"iscrete system equations, or\nsimilar type of algorithm that may be used with"
+"in a Simulink block diagram.\n\nThe generalized form of an M-File S-function "
+"syntax is:\n     [SYS,X0,STR,TS] = SFUNC(T,X,U,FLAG,P1,...,Pn)\n\nThe result "
+"returned by SFUNC at a given point in time, T, depends on the\nvalue of the F"
+"LAG, the current state vector, X, and the current\ninput vector, U.\n\n FLAG "
+"  RESULT             DESCRIPTION\n -----  ------             ----------------"
+"----------------------------\n 0      [SIZES,X0,STR,TS]  Initialization, retu"
+"rn system sizes in SYS,\n                           initial state in X0, stat"
+"e ordering strings\n                           in STR, and sample times in TS"
+".\n 1      DX                 Return continuous state derivatives in SYS.\n 2"
+"      DS                 Update discrete states SYS = X(n+1)\n 3      Y      "
+"            Return outputs in SYS.\n 4      TNEXT              Return next ti"
+"me hit for variable step sample\n                           time in SYS.\n 5 "
+"                        Reserved for future (root finding).\n 9      []      "
+"           Termination, perform any cleanup SYS=[].\n\n\nThe state vectors, X"
+" and X0 consists of continuous states followed\nby discrete states.\n\nOption"
+"al parameters, P1,...,Pn can be provided to the S-function and\nused during a"
+"ny FLAG operation.\n\nWhen SFUNC is called with FLAG = 0, the following infor"
+"mation\nshould be returned:\n\n    SYS(1) = Number of continuous states.\n   "
+" SYS(2) = Number of discrete states.\n    SYS(3) = Number of outputs.\n    SY"
+"S(4) = Number of inputs.\n             Any of the first four elements in SYS "
+"can be specified\n             as -1 indicating that they are dynamically siz"
+"ed. The\n             actual length for all other flags will be equal to the"
+"\n             length of the input, U.\n    SYS(5) = Reserved for root findin"
+"g. Must be zero.\n    SYS(6) = Direct feedthrough flag (1=yes, 0=no). The s-f"
+"unction\n             has direct feedthrough if U is used during the FLAG=3\n"
+"             call. Setting this to 0 is akin to making a promise that\n      "
+"       U will not be used during FLAG=3. If you break the promise\n          "
+"   then unpredictable results will occur.\n    SYS(7) = Number of sample time"
+"s. This is the number of rows in TS.\n\n\n    X0     = Initial state conditio"
+"ns or [] if no states.\n\n    STR    = State ordering strings which is genera"
+"lly specified as [].\n\n    TS     = An m-by-2 matrix containing the sample t"
+"ime\n             (period, offset) information. Where m = number of sample\n "
+"            times. The ordering of the sample times must be:\n\n             "
+"TS = [0      0,      : Continuous sample time.\n                   0      1, "
+"     : Continuous, but fixed in minor step\n                                 "
+"   sample time.\n                   PERIOD OFFSET, : Discrete sample time whe"
+"re\n                                    PERIOD > 0 & OFFSET < PERIOD.\n      "
+"             -2     0];     : Variable step discrete sample time\n           "
+"                         where FLAG=4 is used to get time of\n               "
+"                     next hit.\n\n             There can be more than one sam"
+"ple time providing\n             they are ordered such that they are monotoni"
+"cally\n             increasing. Only the needed sample times should be\n     "
+"        specified in TS. When specifying than one\n             sample time, "
+"you must check for sample hits explicitly by\n             seeing if\n       "
+"         abs(round((T-OFFSET)/PERIOD) - (T-OFFSET)/PERIOD)\n             is w"
+"ithin a specified tolerance, generally 1e-8. This\n             tolerance is "
+"dependent upon your model's sampling times\n             and simulation time."
+"\n\n             You can also specify that the sample time of the S-function"
+"\n             is inherited from the driving block. For functions which\n    "
+"         change during minor steps, this is done by\n             specifying "
+"SYS(7) = 1 and TS = [-1 0]. For functions which\n             are held during"
+" minor steps, this is done by specifying\n             SYS(7) = 1 and TS = [-"
+"1 1].\n             "
+      }
+      CopyFcn		      "docblock('breaklink',gcb);"
+      DeleteFcn		      "docblock('close_document',gcb);"
+      PreSaveFcn	      "docblock('save_document',gcb);"
+      OpenFcn		      "docblock('edit_document',gcb);"
+      FontSize		      14
+      FontWeight	      "bold"
+      FontAngle		      "oblique"
+      TreatAsAtomicUnit	      off
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      MaskType		      "DocBlock"
+      MaskDescription	      "Use this block to save long descriptive text wi"
+"th the model.  Double-clicking the block will open an editor."
+      MaskPromptString	      "E Coder Flag|Document Type"
+      MaskStyleString	      "edit,popup(Text|RTF|HTML)"
+      MaskTunableValueString  "off,off"
+      MaskCallbackString      "|"
+      MaskEnableString	      "on,on"
+      MaskVisibilityString    "on,off"
+      MaskToolTipString	      "on,on"
+      MaskVarAliasString      ","
+      MaskVariables	      "ECoderFlag=&1;DocumentType=&2;"
+      MaskDisplay	      "plot([.8 0 0 1 1 .8 .8 1],[1 1 0 0 .8 1 .8 .8])"
+";\ntext(.5,.5,'DOC','horizontalalignment','center');\n"
+      MaskIconFrame	      off
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      MaskValueString	      "|Text"
+      MaskTabNameString	      ","
+      System {
+	Name			"DocBlock"
+	Location		[480, 85, 980, 386]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "EmptySubsystem"
+	  Ports			  []
+	  Position		  [115, 50, 145, 80]
+	  TreatAsAtomicUnit	  off
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  System {
+	    Name		    "EmptySubsystem"
+	    Location		    [146, 180, 902, 673]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    ZoomFactor		    "100"
+	  }
+	}
+      }
+    }
+    Block {
+      BlockType		      Display
+      Name		      "Elapsed Time (days)"
+      Ports		      [1]
+      Position		      [655, 607, 835, 693]
+      BackgroundColor	      "darkGreen"
+      Priority		      "4"
+      FontSize		      14
+      FontWeight	      "bold"
+      Decimation	      "1"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "General\nData\nScope"
+      Ports		      [1]
+      Position		      [785, 432, 845, 538]
+      BackgroundColor	      "green"
+      NamePlacement	      "alternate"
+      FontSize		      12
+      FontWeight	      "bold"
+      Location		      [511, 121, 1295, 869]
+      Open		      off
+      NumInputPorts	      "1"
+      TickLabels	      "on"
+      ZoomMode		      "yonly"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      YMin		      "0"
+      YMax		      "50"
+      SaveToWorkspace	      on
+      SaveName		      "N1"
+      DataFormat	      "Structure"
+      LimitDataPoints	      off
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "Graphic Plots"
+      Ports		      [1]
+      Position		      [520, 456, 580, 544]
+      Orientation	      "left"
+      BackgroundColor	      "green"
+      NamePlacement	      "alternate"
+      FontSize		      12
+      FontWeight	      "bold"
+      Location		      [337, 100, 1019, 572]
+      Open		      off
+      NumInputPorts	      "1"
+      TickLabels	      "on"
+      ZoomMode		      "yonly"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      YMin		      "0.1"
+      YMax		      "0.32"
+      SaveName		      "N"
+      DataFormat	      "Array"
+      LimitDataPoints	      off
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Model Info"
+      Ports		      []
+      Position		      [480, 12, 810, 122]
+      BackgroundColor	      "darkGreen"
+      ShowName		      off
+      FontSize		      12
+      FontWeight	      "bold"
+      SourceBlock	      "simulink/Model-Wide\nUtilities/Model Info"
+      SourceType	      "CMBlock"
+      ShowPortLabels	      on
+      InitialBlockCM	      "none"
+      BlockCM		      "none"
+      Frame		      "on"
+      DisplayStringWithTags   "ADM1 Anaerobic Digestion Model %<Description>\n"
+"Date Created: %<Created>\nDate Last Modification: %<ModifiedDate>\nLast Modif"
+"ied By: %<ModifiedBy>\nADM1 Model Version: %<ModelVersion>\nON-LINE DOCUMENTA"
+"TION MANUAL  ===V=V=V=== %<ModifiedComment>"
+      MaskDisplayString	      "ADM1 Anaerobic Digestion Model \\nDate Created:"
+" Thu Mar  7 14:50:24 2002\\nDate Last Modification: Tue Nov 25 12:34:29 2008"
+"\\nLast Modified By: evren.tugtas\\nADM1 Model Version: 1.129\\nON-LINE DOCUM"
+"ENTATION MANUAL  ===V=V=V=== "
+      HorizontalTextAlignment "Left"
+      LeftAlignmentValue      "0.02"
+      SourceBlockDiagram      "adm1"
+      TagMaxNumber	      "20"
+    }
+    Block {
+      BlockType		      Mux
+      Name		      "Mux"
+      Ports		      [40, 1]
+      Position		      [390, 5, 460, 1030]
+      BackgroundColor	      "gray"
+      ShowName		      off
+      FontSize		      24
+      FontWeight	      "bold"
+      FontAngle		      "oblique"
+      Inputs		      "40"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "N2O_in"
+      Tag		      "N2O_in"
+      Position		      [25, 863, 170, 887]
+      ForegroundColor	      "red"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "N2_in"
+      Tag		      "N2_in"
+      Position		      [185, 888, 330, 912]
+      ForegroundColor	      "red"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "NO2_in"
+      Tag		      "NO2_in"
+      Position		      [25, 813, 170, 837]
+      ForegroundColor	      "red"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "NO3_in"
+      Tag		      "NO3_in"
+      Position		      [180, 788, 325, 812]
+      ForegroundColor	      "red"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0.05"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "NO_in"
+      Tag		      "NO_in"
+      Position		      [185, 838, 330, 862]
+      ForegroundColor	      "red"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "SIC_in"
+      Tag		      "SIC_in"
+      Position		      [25, 238, 170, 262]
+      ForegroundColor	      "red"
+      BackgroundColor	      "lightBlue"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "SIN_in"
+      Tag		      "SIN_in"
+      Position		      [175, 263, 320, 287]
+      ForegroundColor	      "red"
+      BackgroundColor	      "lightBlue"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0.22993"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "SI_in"
+      Tag		      "SI_in"
+      Position		      [25, 288, 170, 312]
+      ForegroundColor	      "red"
+      BackgroundColor	      "lightBlue"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Saa_in"
+      Tag		      "Saa_in"
+      Position		      [20, 38, 165, 62]
+      ForegroundColor	      "red"
+      BackgroundColor	      "lightBlue"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Sac_in"
+      Tag		      "Sac_in"
+      Position		      [170, 163, 315, 187]
+      ForegroundColor	      "red"
+      BackgroundColor	      "lightBlue"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "San_in"
+      Tag		      "San_in"
+      Position		      [25, 638, 170, 662]
+      ForegroundColor	      "red"
+      BackgroundColor	      "darkGreen"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Sbu_in"
+      Tag		      "Sbu_in"
+      Position		      [170, 113, 315, 137]
+      ForegroundColor	      "red"
+      BackgroundColor	      "lightBlue"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Scat_in"
+      Position		      [175, 613, 320, 637]
+      ForegroundColor	      "red"
+      BackgroundColor	      "darkGreen"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Sch4_in"
+      Tag		      "Sch4_in"
+      Position		      [175, 213, 320, 237]
+      ForegroundColor	      "red"
+      BackgroundColor	      "lightBlue"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0.0"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Selector
+      Name		      "Selector"
+      Ports		      [1, 1]
+      Position		      [620, 481, 665, 519]
+      Orientation	      "left"
+      BackgroundColor	      "darkGreen"
+      OpenFcn		      "ADM1Output"
+      FontSize		      12
+      FontWeight	      "bold"
+      Elements		      "[1  2  3  4  5  6  7]"
+      InputPortWidth	      "48"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Sfa_in"
+      Tag		      "Sfa_in"
+      Position		      [170, 63, 315, 87]
+      ForegroundColor	      "red"
+      BackgroundColor	      "lightBlue"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Sh2_in"
+      Tag		      "Sh2_in"
+      Position		      [20, 188, 165, 212]
+      ForegroundColor	      "red"
+      BackgroundColor	      "lightBlue"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0.0"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Spro_in"
+      Tag		      "Spro_in"
+      Position		      [20, 138, 165, 162]
+      ForegroundColor	      "red"
+      BackgroundColor	      "lightBlue"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Ssu_in"
+      Tag		      "Ssu_in"
+      Position		      [170, 13, 315, 37]
+      ForegroundColor	      "red"
+      BackgroundColor	      "lightBlue"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Display
+      Name		      "Steady-State Output\nVariable Monitor"
+      Ports		      [1]
+      Position		      [1190, 13, 1340, 1057]
+      BackgroundColor	      "gray"
+      Priority		      "2"
+      FontSize		      12
+      FontWeight	      "bold"
+      Format		      "long"
+      Decimation	      "1"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Sva_in"
+      Tag		      "Sva_in"
+      Position		      [20, 88, 165, 112]
+      ForegroundColor	      "red"
+      BackgroundColor	      "lightBlue"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Clock
+      Name		      "Time Clock"
+      Position		      [505, 570, 565, 630]
+      BackgroundColor	      "lightBlue"
+      Priority		      "3"
+      FontSize		      18
+      FontWeight	      "bold"
+      FontAngle		      "oblique"
+      Decimation	      "10"
+    }
+    Block {
+      BlockType		      ToWorkspace
+      Name		      "Time Storage Array"
+      Position		      [680, 548, 800, 582]
+      BackgroundColor	      "darkGreen"
+      Priority		      "5"
+      FontSize		      12
+      FontWeight	      "bold"
+      VariableName	      "time"
+      MaxDataPoints	      "inf"
+      SampleTime	      "-1"
+      SaveFormat	      "Array"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "V_gas"
+      Tag		      "V_gas"
+      Position		      [175, 713, 320, 737]
+      ForegroundColor	      "red"
+      BackgroundColor	      "cyan"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0.00045"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "V_liq"
+      Tag		      "V_liq"
+      Position		      [25, 688, 170, 712]
+      ForegroundColor	      "red"
+      BackgroundColor	      "cyan"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0.00185"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "XI_in"
+      Tag		      "XI_in"
+      Position		      [25, 588, 170, 612]
+      ForegroundColor	      "red"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "34.2811"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "X_ch_feed_in"
+      Tag		      "X_ch_feed_in"
+      Position		      [185, 943, 330, 967]
+      ForegroundColor	      "red"
+      BackgroundColor	      "lightBlue"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "4.98"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "X_li_feed_in"
+      Tag		      "X_li_feed_in"
+      Position		      [185, 998, 330, 1022]
+      ForegroundColor	      "red"
+      BackgroundColor	      "lightBlue"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "X_pr_feed_in"
+      Tag		      "X_pr_feed_in"
+      Position		      [25, 973, 170, 997]
+      ForegroundColor	      "red"
+      BackgroundColor	      "lightBlue"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "2.5"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Xaa_in"
+      Tag		      "Xaa_in"
+      Position		      [25, 438, 170, 462]
+      ForegroundColor	      "red"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0.242"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Xac_in"
+      Tag		      "Xac_in"
+      Position		      [25, 538, 170, 562]
+      ForegroundColor	      "red"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0.152"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Xc4_in"
+      Tag		      "Xc4_in"
+      Position		      [25, 488, 170, 512]
+      ForegroundColor	      "red"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0.182"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Xch_in"
+      Tag		      "Xch_in"
+      Position		      [25, 338, 170, 362]
+      ForegroundColor	      "red"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Xfa_in"
+      Tag		      "Xfa_in"
+      Position		      [175, 463, 320, 487]
+      ForegroundColor	      "red"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0.182"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Xh2_in"
+      Tag		      "Xh2_in"
+      Position		      [175, 513, 320, 537]
+      ForegroundColor	      "red"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      " 0.182"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Xli_in"
+      Tag		      "Xli_in"
+      Position		      [25, 388, 170, 412]
+      ForegroundColor	      "red"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Xnox_in"
+      Tag		      "Xnox_in"
+      Position		      [25, 913, 170, 937]
+      ForegroundColor	      "red"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0.09"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Xpr_in"
+      Tag		      "Xpr_in"
+      Position		      [175, 363, 320, 387]
+      ForegroundColor	      "red"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Xpro_in"
+      Tag		      "Xpro_in"
+      Position		      [175, 563, 320, 587]
+      ForegroundColor	      "red"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0.121"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Xsu_in"
+      Tag		      "Xsu_in"
+      Position		      [175, 413, 320, 437]
+      ForegroundColor	      "red"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0.3"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Xxc_in"
+      Tag		      "Xxc_in"
+      Position		      [175, 313, 320, 337]
+      ForegroundColor	      "red"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "0"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "q_in"
+      Tag		      "q_in"
+      Position		      [175, 663, 320, 687]
+      ForegroundColor	      "red"
+      BackgroundColor	      "cyan"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "5.3e-5"
+      OutDataTypeMode	      "double"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "tres_x (Future Expansion)\n"
+      Tag		      "tres_x"
+      Position		      [25, 738, 170, 762]
+      ForegroundColor	      "red"
+      BackgroundColor	      "cyan"
+      Priority		      "0"
+      FontWeight	      "bold"
+      Value		      "2.5"
+      OutDataTypeMode	      "double"
+    }
+    Line {
+      Labels		      [0, 0]
+      SrcBlock		      "CSTR Reactor Module"
+      SrcPort		      1
+      Points		      [10, 0; 0, 55; 25, 0]
+      Branch {
+	Points			[0, 0]
+	Branch {
+	  Points		  [0, -35]
+	  DstBlock		  "Data Storage Array"
+	  DstPort		  1
+	}
+	Branch {
+	  Points		  [0, 35; 460, 0]
+	  DstBlock		  "Steady-State Output\nVariable Monitor"
+	  DstPort		  1
+	}
+      }
+      Branch {
+	Labels			[1, 0]
+	Points			[0, 140]
+	Branch {
+	  DstBlock		  "General\nData\nScope"
+	  DstPort		  1
+	}
+	Branch {
+	  Labels		  [2, 0]
+	  Points		  [0, 15]
+	  DstBlock		  "Selector"
+	  DstPort		  1
+	}
+      }
+    }
+    Line {
+      SrcBlock		      "Time Clock"
+      SrcPort		      1
+      Points		      [0, 0; 35, 0]
+      Branch {
+	Points			[0, -35]
+	DstBlock		"Time Storage Array"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, 50]
+	DstBlock		"Elapsed Time (days)"
+	DstPort			1
+      }
+    }
+    Line {
+      SrcBlock		      "Ssu_in"
+      SrcPort		      1
+      Points		      [55, 0]
+      DstBlock		      "Mux"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Saa_in"
+      SrcPort		      1
+      Points		      [205, 0]
+      DstBlock		      "Mux"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Sfa_in"
+      SrcPort		      1
+      Points		      [55, 0]
+      DstBlock		      "Mux"
+      DstPort		      3
+    }
+    Line {
+      SrcBlock		      "Sva_in"
+      SrcPort		      1
+      Points		      [205, 0]
+      DstBlock		      "Mux"
+      DstPort		      4
+    }
+    Line {
+      SrcBlock		      "Sbu_in"
+      SrcPort		      1
+      Points		      [55, 0]
+      DstBlock		      "Mux"
+      DstPort		      5
+    }
+    Line {
+      SrcBlock		      "Spro_in"
+      SrcPort		      1
+      Points		      [205, 0]
+      DstBlock		      "Mux"
+      DstPort		      6
+    }
+    Line {
+      SrcBlock		      "Sac_in"
+      SrcPort		      1
+      Points		      [55, 0]
+      DstBlock		      "Mux"
+      DstPort		      7
+    }
+    Line {
+      SrcBlock		      "Sh2_in"
+      SrcPort		      1
+      Points		      [205, 0]
+      DstBlock		      "Mux"
+      DstPort		      8
+    }
+    Line {
+      SrcBlock		      "Sch4_in"
+      SrcPort		      1
+      Points		      [50, 0]
+      DstBlock		      "Mux"
+      DstPort		      9
+    }
+    Line {
+      SrcBlock		      "SIC_in"
+      SrcPort		      1
+      Points		      [200, 0]
+      DstBlock		      "Mux"
+      DstPort		      10
+    }
+    Line {
+      SrcBlock		      "SIN_in"
+      SrcPort		      1
+      Points		      [50, 0]
+      DstBlock		      "Mux"
+      DstPort		      11
+    }
+    Line {
+      SrcBlock		      "SI_in"
+      SrcPort		      1
+      Points		      [200, 0]
+      DstBlock		      "Mux"
+      DstPort		      12
+    }
+    Line {
+      SrcBlock		      "Xxc_in"
+      SrcPort		      1
+      Points		      [50, 0]
+      DstBlock		      "Mux"
+      DstPort		      13
+    }
+    Line {
+      SrcBlock		      "Xch_in"
+      SrcPort		      1
+      Points		      [200, 0]
+      DstBlock		      "Mux"
+      DstPort		      14
+    }
+    Line {
+      SrcBlock		      "Xpr_in"
+      SrcPort		      1
+      Points		      [50, 0]
+      DstBlock		      "Mux"
+      DstPort		      15
+    }
+    Line {
+      SrcBlock		      "Xli_in"
+      SrcPort		      1
+      Points		      [200, 0]
+      DstBlock		      "Mux"
+      DstPort		      16
+    }
+    Line {
+      SrcBlock		      "Xsu_in"
+      SrcPort		      1
+      Points		      [50, 0]
+      DstBlock		      "Mux"
+      DstPort		      17
+    }
+    Line {
+      SrcBlock		      "Xaa_in"
+      SrcPort		      1
+      Points		      [200, 0]
+      DstBlock		      "Mux"
+      DstPort		      18
+    }
+    Line {
+      SrcBlock		      "Xfa_in"
+      SrcPort		      1
+      Points		      [50, 0]
+      DstBlock		      "Mux"
+      DstPort		      19
+    }
+    Line {
+      SrcBlock		      "Xc4_in"
+      SrcPort		      1
+      Points		      [200, 0]
+      DstBlock		      "Mux"
+      DstPort		      20
+    }
+    Line {
+      SrcBlock		      "Xac_in"
+      SrcPort		      1
+      Points		      [200, 0]
+      DstBlock		      "Mux"
+      DstPort		      22
+    }
+    Line {
+      SrcBlock		      "XI_in"
+      SrcPort		      1
+      Points		      [200, 0]
+      DstBlock		      "Mux"
+      DstPort		      24
+    }
+    Line {
+      SrcBlock		      "Scat_in"
+      SrcPort		      1
+      Points		      [50, 0]
+      DstBlock		      "Mux"
+      DstPort		      25
+    }
+    Line {
+      SrcBlock		      "San_in"
+      SrcPort		      1
+      Points		      [200, 0]
+      DstBlock		      "Mux"
+      DstPort		      26
+    }
+    Line {
+      SrcBlock		      "q_in"
+      SrcPort		      1
+      Points		      [50, 0]
+      DstBlock		      "Mux"
+      DstPort		      27
+    }
+    Line {
+      SrcBlock		      "Mux"
+      SrcPort		      1
+      Points		      [10, 0; 0, -230]
+      DstBlock		      "CSTR Reactor Module"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Xh2_in"
+      SrcPort		      1
+      Points		      [50, 0]
+      DstBlock		      "Mux"
+      DstPort		      21
+    }
+    Line {
+      SrcBlock		      "Xpro_in"
+      SrcPort		      1
+      Points		      [50, 0]
+      DstBlock		      "Mux"
+      DstPort		      23
+    }
+    Line {
+      SrcBlock		      "V_liq"
+      SrcPort		      1
+      Points		      [200, 0]
+      DstBlock		      "Mux"
+      DstPort		      28
+    }
+    Line {
+      SrcBlock		      "V_gas"
+      SrcPort		      1
+      Points		      [50, 0]
+      DstBlock		      "Mux"
+      DstPort		      29
+    }
+    Line {
+      SrcBlock		      "tres_x (Future Expansion)\n"
+      SrcPort		      1
+      Points		      [200, 0]
+      DstBlock		      "Mux"
+      DstPort		      30
+    }
+    Line {
+      SrcBlock		      "DEBUG Mode"
+      SrcPort		      1
+      Points		      [-20, 0; 0, 60; -105, 0]
+      DstBlock		      "Mux"
+      DstPort		      31
+    }
+    Line {
+      SrcBlock		      "Selector"
+      SrcPort		      1
+      DstBlock		      "Graphic Plots"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "NO3_in"
+      SrcPort		      1
+      Points		      [45, 0]
+      DstBlock		      "Mux"
+      DstPort		      32
+    }
+    Line {
+      SrcBlock		      "NO2_in"
+      SrcPort		      1
+      Points		      [200, 0]
+      DstBlock		      "Mux"
+      DstPort		      33
+    }
+    Line {
+      SrcBlock		      "NO_in"
+      SrcPort		      1
+      Points		      [40, 0]
+      DstBlock		      "Mux"
+      DstPort		      34
+    }
+    Line {
+      SrcBlock		      "N2O_in"
+      SrcPort		      1
+      Points		      [200, 0]
+      DstBlock		      "Mux"
+      DstPort		      35
+    }
+    Line {
+      SrcBlock		      "N2_in"
+      SrcPort		      1
+      Points		      [40, 0]
+      DstBlock		      "Mux"
+      DstPort		      36
+    }
+    Line {
+      SrcBlock		      "Xnox_in"
+      SrcPort		      1
+      Points		      [200, 0]
+      DstBlock		      "Mux"
+      DstPort		      37
+    }
+    Line {
+      SrcBlock		      "X_ch_feed_in"
+      SrcPort		      1
+      DstBlock		      "Mux"
+      DstPort		      38
+    }
+    Line {
+      SrcBlock		      "X_pr_feed_in"
+      SrcPort		      1
+      Points		      [200, 0]
+      DstBlock		      "Mux"
+      DstPort		      39
+    }
+    Line {
+      SrcBlock		      "X_li_feed_in"
+      SrcPort		      1
+      Points		      [20, 0; 0, -5]
+      DstBlock		      "Mux"
+      DstPort		      40
+    }
+    Annotation {
+      Position		      [491, 563]
+    }
+    Annotation {
+      Name		      " Monosaccharides (kg COD/m3) [Ssu]             "
+"   "
+      Position		      [878, 14]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " Amino Acids (kg COD/m3) [Saa]                 "
+"   "
+      Position		      [878, 34]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " Long Chain Fatty Acids - LCFA  (kg COD/m3) [Sf"
+"a] "
+      Position		      [878, 54]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " Total Valerate (kg COD/m3) [Sva]              "
+"   "
+      Position		      [878, 74]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " Total Butyrate (kg COD/m3) [Sbu]              "
+"   "
+      Position		      [878, 99]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " Total Propionate (kg COD/m3) [Spro]           "
+"   "
+      Position		      [878, 119]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " Total Acetate  (kg COD/m3) [Sac]              "
+"   "
+      Position		      [878, 139]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " Hydrogen Gas in Liquid (kg COD/m3) [Sh2]      "
+"   "
+      Position		      [878, 159]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " Methane Gas in Liquid (kg COD/m3) [Sch4]      "
+"   "
+      Position		      [878, 179]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " Inorganic Carbon (kmole C/m3) [SIC]           "
+"   "
+      Position		      [878, 204]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " Inorganic Nitrogen (kmole C/m3) [SIN]         "
+"   "
+      Position		      [878, 224]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " Soluable Inerts (kg COD/m3) [Si]              "
+"   "
+      Position		      [878, 244]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " Composites (kg COD/m3) [Xxc]                  "
+"   "
+      Position		      [878, 264]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " Carbohydrates (kg COD/m3) [Xch]               "
+"   "
+      Position		      [878, 284]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " Proteins (kg COD/m3) [Xpr]                    "
+"   "
+      Position		      [878, 309]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " Lipids (kg COD/m3) [Xli]                      "
+"   "
+      Position		      [878, 329]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " Amino Acid Degraders (kg COD/m3) [Xaa]        "
+"   "
+      Position		      [878, 369]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " LCFA Degraders (kg COD/m3) [Xfa]]             "
+"   "
+      Position		      [878, 389]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " Valerate and Butyrate Degraders (kg COD/m3) [X"
+"c4]"
+      Position		      [878, 414]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " Propionate Degraders (kg COD/m3) [Xpro]       "
+"   "
+      Position		      [878, 434]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " Acetate Degraders  (kg COD/m3) [Xac]          "
+"   "
+      Position		      [878, 454]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " Hydrogen Degraders (kg COD/m3) [Xh2]          "
+"   "
+      Position		      [878, 474]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " Particulate Inerts (kg COD/m3) [Xi]]          "
+"   "
+      Position		      [878, 494]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " Cations (kmole/m3) [Scat]                     "
+"   "
+      Position		      [878, 519]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " Anions (kmole/m3) [San]                       "
+"   "
+      Position		      [878, 539]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " [Sva-]                                        "
+"   "
+      Position		      [878, 559]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " [Sbu-]                                        "
+"   "
+      Position		      [878, 579]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " [Spro-]                                       "
+"   "
+      Position		      [878, 599]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " [Sac-]                                        "
+"   "
+      Position		      [878, 624]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " [Shco3-]                                      "
+"   "
+      Position		      [878, 644]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " [Snh3]                                        "
+"   "
+      Position		      [878, 664]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " [SH+]                                         "
+"   "
+      Position		      [878, 684]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " [Sgas,h2]                                     "
+"   "
+      Position		      [878, 704]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " [Sgas,ch4]                                    "
+"   "
+      Position		      [878, 729]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " [Sgas,co2]                                    "
+"   "
+      Position		      [878, 749]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+    Annotation {
+      Name		      " Sugar Degraders (kg COD/m3) [Xsu]             "
+"   "
+      Position		      [878, 349]
+      HorizontalAlignment     "left"
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      9
+    }
+  }
+}

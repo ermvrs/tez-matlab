@@ -160,6 +160,15 @@ global time Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
    delG_7=(delG_PAtoAA*1000) + R_inh*T_op*log((((X(7)/(COD_ace*MW_ace)))*(p_gas_h2^3)*(p_gas_co2))/((X(6)/(COD_pro*MW_pro))));
    
    delG_8=(delG_H2toAce*1000) + R_inh*T_op*log((((X(7)/(COD_ace*MW_ace))^2))/((p_gas_h2^4)*(p_gas_co2^2)));
+
+   if t > 10 & t < 30
+        Xxc = 30;
+   elseif t > 30
+        Xxc = 40;
+   else 
+        Xxc = 20;
+   end
+
    
  
    
@@ -339,9 +348,10 @@ global time Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
     % Differential equations (particulate matter):
     % -----------------------------------------------------------------
     % Mass Balance Eqn for Composite	
+
     % xxc değerini time a gör edeğiştir.
     dX(13) = (q_in/V_liq) * (Xxc - X(13)) - rho(1) + sum(rho(13:19));
-
+    %dX(13) = Xxc - X(13);
     %dX(13) = xxcfonk(t, q_in, V_liq, Xxc, X(13), rho(1), sum(rho(13:19)));
 
 

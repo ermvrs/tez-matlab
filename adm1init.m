@@ -56,7 +56,7 @@ global Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
     % json buraya kadar
     q_gas=0;
     SI = 0.0001; %5.5383;       % (12) Soluble Inerts
-    Xxc = 30;%67.5; %5.5083; % (13) Composite
+    Xxc = 20;%67.5; %5.5083; % (13) Composite
     Xch = 23.1;%2;     % (14) Carbohydrates 
     Xpr = 2.2;%20;     % (15) Proteins
     Xli = 1.1;%2.1;%1.9;% 5;  % (16) Lipids
@@ -286,7 +286,6 @@ global Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
 							
 
     time=0:0.2:70;
-
     [t,dX]=ode15s('adm1sys', time, [Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI Xxc Xch Xpr Xli Xsu Xaa Xfa Xc4 Xpro Xac Xh2 XI Scat San Shva Shbu Shpro...
         Shac Shco3 Snh3 S_H_ion S_gas_h2 S_gas_ch4 S_gas_co2 q_gas Xhomo XCE Slac Sca]);
     ret = dX

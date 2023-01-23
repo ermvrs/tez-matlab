@@ -23,11 +23,8 @@ order = ["Ssu", "Saa", "Sfa", "Sva", "Sbu", "Spro", "Sac", "Sh2", "Sch4", "SIC",
 
 final = {}
 time = 0.0
-print(len(inputs))
 for result in inputs:
     obj = {}
-    print(result)
-    print("RESULT LEN :{} - ORDER LEN : {}".format(len(result), len(order)))
     if len(result) == len(order):
         for ids, element in enumerate(order):
             obj[order[ids]] = format(result[ids],".8f")
