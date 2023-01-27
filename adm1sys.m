@@ -216,7 +216,14 @@ global time Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
                     end
 
       % Process Reaction Rate Calculations:
-	rho(1) = k_dis * X(13);
+	
+    if t>= 10 & t < 30
+        rho(1) = k_dis * (X(13) + 10);
+    elseif t>= 30
+        rho(1) = k_dis * (X(13) + 30);
+    else
+        rho(1) = k_dis * X(13);
+    end
 	rho(2) = k_hyd_ch * X(14);
 	rho(3) = k_hyd_pr * X(15);
 	rho(4) = k_hyd_li * X(16);
