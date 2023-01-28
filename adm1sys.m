@@ -350,9 +350,9 @@ global time Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
     % xxc değerini time a gör edeğiştir.
     %dX(13) = (q_in/V_liq) * (Xxc - X(13)) - rho(1) + sum(rho(13:19));
     
-    if t >= 10 & t < 30
+    if t >= 10 & t < 10.1
         dX(13) = 10 + (q_in/V_liq) * (Xxc - X(13)) - rho(1) + sum(rho(13:19));
-    elseif t >= 30
+    elseif t >= 30 & t < 30.1
         dX(13) = 30 + (q_in/V_liq) * (Xxc - X(13)) - rho(1) + sum(rho(13:19));
     else
         dX(13) = (q_in/V_liq) * (Xxc - X(13)) - rho(1) + sum(rho(13:19));
