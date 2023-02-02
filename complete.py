@@ -1,6 +1,6 @@
 import json
 
-GRAPHICS = ["Xxc"] # TODO DENEY DATASI YOKSA PROGRAM ÇÖKMEMELİ
+GRAPHICS = ["Sac", "Spro","Sbu","Sva","S_gas_h2","S_gas_co2","q_gas","Sfa","Saa","Ssu", "Xsu","Xaa","Xfa","Xc4","Xpro","Xac","Xh2","Xxc", "Xli", "Xpr", "Xch"] # TODO DENEY DATASI YOKSA PROGRAM ÇÖKMEMELİ
 ## Matlab çalıştırma ve output alma
 
 import matlab.engine
@@ -73,6 +73,7 @@ for graph in GRAPHICS:
     # giving a title to my graph
     plt.title('{} vs time'.format(graph))
 
-
+    plt.savefig('final_graph/{}.png'.format(graph))
+    plt.close()
     # function to show the plot
-    plt.show()
+    # plt.show()

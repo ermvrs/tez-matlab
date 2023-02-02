@@ -350,18 +350,26 @@ global time Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
     % xxc değerini time a gör edeğiştir.
     %dX(13) = (q_in/V_liq) * (Xxc - X(13)) - rho(1) + sum(rho(13:19));
     
-    if t >= 10 & t < 10.1
+    if t >= 10 & t < 10.5
         %dX(13) = 10 + (q_in/V_liq) * (Xxc - X(13)) - rho(1) + sum(rho(13:19));
         dX(13) = X(13) + 10;
-    elseif t >= 30 & t < 30.1
+        dX(14) = X(14) + 1;
+        dX(15) = X(15) + 1;
+        dX(16) = X(16) + 10;
+    elseif t >= 30 & t < 30.5
         %dX(13) = 30 + (q_in/V_liq) * (Xxc - X(13)) - rho(1) + sum(rho(13:19));
         dX(13) = X(13) + 30;
+        dX(14) = X(14) + 30;
+        dX(15) = X(15) + 3;
+        dX(16) = X(16) + 3;
     else
         dX(13) = (q_in/V_liq) * (Xxc - X(13)) - rho(1) + sum(rho(13:19));
+        dX(14) = (q_in/V_liq) * (Xch - X(14)) + f_ch_xc * rho(1) - rho(2);
+        dX(15) = (q_in/V_liq) * (Xpr - X(15)) + f_pr_xc * rho(1) - rho(3);
+        dX(16) = (q_in/V_liq) * (Xli - X(16)) + f_li_xc * rho(1) - rho(4);
     end
 
     % Mass Balance Eqn for Carbohydrates
-	dX(14) = (q_in/V_liq) * (Xch - X(14)) + f_ch_xc * rho(1) - rho(2);
   %  dX(37) = (q_in/V_liq) * (X_ch_feed - X(37)) - rho(21);
     % Mass Balance Eqn for Proteins
 	dX(15) = (q_in/V_liq) * (Xpr - X(15)) + f_pr_xc * rho(1) - rho(3);
