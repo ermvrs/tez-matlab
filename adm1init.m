@@ -65,8 +65,8 @@ global Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
     Xfa = 0.001;     % (19) Biomass (Long Chain Fatty Acids)
     Xc4 = 0.001;     % (20) Biomass (Valerate & Butyrate Combined)
     Xpro = 0.001;    % (21) Biomass (Propionate)
-    Xac = 0; %0.90075;     % (22) Biomass (Acetate)
-    Xh2 = 0; %0.43629;     % (23) Biomass (Hydrogen)
+    Xac = 0.9; %0.90075;     % (22) Biomass (Acetate)
+    Xh2 = 0.9; %0.43629;     % (23) Biomass (Hydrogen)
     Xhomo=0.001; %Biomass (homoacetogens)
     XCE=0.001; % Biomass chain elongation
     XI =25.1;%5.6;%6.4; %45.298;       % (24) Particulate Inerts
@@ -149,8 +149,8 @@ global Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
     Y_c4 = 0.06;
     Y_pro = 0.04;
     C_ch4 = 0.0156;
-    Y_ac = 0;%0.05;
-    Y_h2 = 0;%0.06;
+    Y_ac = 0.05;%0.05;
+    Y_h2 = 0.06;%0.06;
     Y_homo=0.115; % yield coeff of homoacetogens 
     Y_ce=0.13;%CHAIN ELONGATION
 
@@ -206,8 +206,8 @@ global Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
     k_dec_Xfa = 0.01;
     k_dec_Xc4 = 0.01;
     k_dec_Xpro = 0.01;
-    k_dec_Xac = 0;
-    k_dec_Xh2 = 0;
+    k_dec_Xac = 0.01;
+    k_dec_Xh2 = 0.01;
     k_dec_Xhomo=0.01;
     k_dec_Xce=0.001;
     
@@ -286,7 +286,7 @@ global Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI...
     K_H_h2 = 7.38e-4;   %7.8e-4*exp(deltaH0_KH_h2/(R*100)*(1/298.15-1/Top))		
 
 
-    time=0:0.2:70;
+    time=0:0.2:120;
     [t,dX]=ode15s('adm1sys', time, [Ssu Saa Sfa Sva Sbu Spro Sac Sh2 Sch4 SIC SIN SI Xxc Xch Xpr Xli Xsu Xaa Xfa Xc4 Xpro Xac Xh2 XI Scat San Shva Shbu Shpro...
         Shac Shco3 Snh3 S_H_ion S_gas_h2 S_gas_ch4 S_gas_co2 q_gas Xhomo XCE Slac Sca]);
     ret = dX
